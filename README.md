@@ -13,12 +13,13 @@ By default, all postman collection files (ending with `.postman_collection.json`
 ```
 // postmanrunner is not available in a common repository right now
 // maybe you want to use jitpack to check out master directly?
-buildScript {
+buildscript {
     repositories {
+        jcenter()
         maven { url "https://jitpack.io" }
     }
     dependencies {
-        compile('com.github.simomat:gradle-postman-runner:1.0-SNAPSHOT')
+        classpath 'com.github.simomat:gradle-postman-runner:-SNAPSHOT'
     }
 }
 
