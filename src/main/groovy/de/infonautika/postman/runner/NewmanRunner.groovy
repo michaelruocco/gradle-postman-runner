@@ -2,8 +2,10 @@ package de.infonautika.postman.runner
 
 import com.moowork.gradle.node.exec.NodeExecRunner
 import org.apache.commons.io.FileUtils
+import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.file.FileCollection
+import org.gradle.process.internal.ExecException
 
 class NewmanRunner {
 
@@ -20,11 +22,26 @@ class NewmanRunner {
     }
 
     def run() {
-        def runner = new NodeExecRunner(project)
-        collections.each { collection ->
-            runner.arguments = [ wrapper, collection ] + wrapperArguments
-            runner.execute()
+        NodeExecRunner runner = createRunner()
+
+        def results = collections.collect { collection ->
+            runner.arguments = [wrapper, collection] + wrapperArguments
+            try {
+                return runner.execute().exitValue == 0
+            } catch (ExecException e) {
+                return false
+            }
         }
+
+        if (!results.every { result -> return result }) {
+            throw new GradleException("There were failing tests.")
+        }
+    }
+
+    private NodeExecRunner createRunner() {
+        def runner = new NodeExecRunner(project)
+        runner.ignoreExitValue = true
+        return runner
     }
 
     def getWrapperArguments() {
