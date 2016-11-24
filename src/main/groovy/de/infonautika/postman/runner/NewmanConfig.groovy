@@ -13,22 +13,29 @@ class NewmanConfig {
     }
 
     def String toJson() {
-        return "{\"collection\":\"${collection}\",${environment}${reporters}${sentinel}}"
+        return "{${parameters}}"
     }
 
-    def getReporters() {
-        return "\"reporters\":[\"cli\"],"
+    def getParameters() {
+        return parameterList.join(',')
     }
 
-    def getSentinel() {
-        return "\"sentinel\":\"sentinel\""
+    private ArrayList getParameterList() {
+        def parameters = addEnvironment(["\"collection\":\"${collection}\"" ])
+        parameters = addReporters(parameters)
+        return parameters
     }
 
-    def getEnvironment() {
-        if (config.environment == null) {
-            return ""
+    def addReporters(def params) {
+        params.add("\"reporters\":[\"cli\"]")
+        return params
+    }
+
+    def addEnvironment(def params) {
+        if (config.environment != null) {
+            params.add("\"environment\":\"${config.environment}\"")
         }
-        return "\"environment\":\"${config.environment}\","
+        return params
     }
 
     def getConfig() {

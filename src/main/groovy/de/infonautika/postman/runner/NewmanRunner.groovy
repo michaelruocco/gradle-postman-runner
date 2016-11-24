@@ -54,7 +54,7 @@ class NewmanRunner {
         def postmanDir = new File(project.getBuildDir(), 'postmanRunner')
         if (!postmanDir.exists()) {
             if (!postmanDir.mkdirs()) {
-                throw new RuntimeException('could not create postmanRunner directory in ' + postmanDir.absolutePath)
+                throw new RuntimeException("could not create postmanRunner directory in ${postmanDir.absolutePath}")
             }
         }
         return postmanDir
