@@ -13,19 +13,17 @@ class NewmanRunner {
 
     private Project project
     private FileCollection collections
-    private File environment
 
-    public NewmanRunner(Project project, FileCollection collections, File environment) {
+    public NewmanRunner(Project project, FileCollection collections) {
         this.project = project
         this.collections = collections
-        this.environment = environment
     }
 
     def run() {
         NodeExecRunner runner = createRunner()
 
         def results = collections.collect { collection ->
-            runner.arguments = [wrapper, collection] + wrapperArguments
+            runner.arguments = [wrapper, new NewmanConfig(project, collection).toJson() ]
             try {
                 return runner.execute().exitValue == 0
             } catch (ExecException e) {
@@ -42,13 +40,6 @@ class NewmanRunner {
         def runner = new NodeExecRunner(project)
         runner.ignoreExitValue = true
         return runner
-    }
-
-    def getWrapperArguments() {
-        if (environment != null) {
-            return [ environment ]
-        }
-        return []
     }
 
     def getWrapper() {
