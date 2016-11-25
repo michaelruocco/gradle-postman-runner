@@ -19,7 +19,7 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath 'com.github.simomat:gradle-postman-runner:-SNAPSHOT'
+        classpath 'com.github.simomat:gradle-postman-runner:0.0.1'
     }
 }
 
@@ -42,6 +42,14 @@ postman {
     // optional: specify the test environment to execute the collections with
     // default: no environment
     environment = file('src/test/some_environment.postman_environment.json')
+
+    // optional: report to stdout
+    // default: true
+    cliReport = false
+    
+    // optional: create junit compatible XML result files in directory
+    // default: off
+    xmlReportDir = 'build/testoutput'
 }
 
 ```
@@ -54,6 +62,6 @@ gradle postman
 
 
 #### Things to be done
-- [ ] more configure options
-- [ ] more result processing
+- [x] more configure options
+- [x] more result processing
 - [ ] parallel execution
