@@ -11,6 +11,7 @@ import org.gradle.api.Project
 class NewmanConfig {
     private Project project
     private File collection
+    private JsonObject params
 
     def NewmanConfig(Project project, File collection) {
         this.collection = collection
@@ -18,22 +19,22 @@ class NewmanConfig {
     }
 
     def String toJson() {
-        return parameters.toString()
+        params = object()
+        buildParameters()
+        return params.toString()
     }
 
-    def getParameters() {
-        def jsonObject = object()
-        addCollection(jsonObject)
-        addEnvironment(jsonObject)
-        addReporters(jsonObject)
-        return jsonObject
+    def buildParameters() {
+        addCollection()
+        addEnvironment()
+        addReporters()
     }
 
-    def addCollection(JsonObject params) {
+    def addCollection() {
         params.add('collection', primitive(collection.toString()))
     }
 
-    def addReporters(JsonObject params) {
+    def addReporters() {
         JsonArray reporters = array()
         JsonObject reporter = object()
 
@@ -58,7 +59,7 @@ class NewmanConfig {
         return params
     }
 
-    def addEnvironment(JsonObject params) {
+    def addEnvironment() {
         if (config.environment != null) {
             params.add('environment', new JsonPrimitive("${config.environment}"))
         }
@@ -76,14 +77,14 @@ class NewmanConfig {
         return reporters.size() == 0
     }
 
+    private static JsonObject object() {
+        return new JsonObject()
+    }
+
     private static JsonObject object(String key, JsonElement value) {
         def junit = object()
         junit.add(key, value)
         return junit
-    }
-
-    private static JsonObject object() {
-        return new JsonObject()
     }
 
     private static JsonPrimitive primitive(String string) {
