@@ -18,5 +18,5 @@ dependencies {
 }
 
 group = 'de.infonautika.postman'
-version = '0.0.1'
+version = '0.0.2'
 
