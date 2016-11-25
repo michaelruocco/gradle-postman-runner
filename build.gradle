@@ -11,8 +11,9 @@ dependencies {
     compile localGroovy()
     compile 'com.moowork.gradle:gradle-node-plugin:0.13'
     compile 'org.apache.commons:commons-io:1.3.2'
+    compile 'com.google.code.gson:gson:2.8.0'
 }
 
 group = 'de.infonautika.postman'
-version = '1.0-SNAPSHOT'
+version = '0.0.1'
 
