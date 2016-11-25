@@ -50,6 +50,10 @@ postman {
     // optional: create junit compatible XML result files in directory
     // default: off
     xmlReportDir = 'build/testoutput'
+    
+    // optional: stop entire execution on first failing test in a collection
+    // default: false
+    stopOnError = true
 }
 
 ```

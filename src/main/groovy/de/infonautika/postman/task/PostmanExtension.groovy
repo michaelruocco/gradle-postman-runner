@@ -6,10 +6,11 @@ import org.gradle.api.file.FileTree
 class PostmanExtension {
     final static String NAME = 'postman'
 
-    def FileTree collections
-    def File environment
-    def boolean cliReport = true
-    def String xmlReportDir
+    private FileTree collections
+    private File environment
+    private boolean cliReport = true
+    private String xmlReportDir
+    private boolean stopOnError = false
 
     FileTree getCollections() {
         return collections
@@ -41,6 +42,14 @@ class PostmanExtension {
 
     void setXmlReportDir(String xmlReport) {
         this.xmlReportDir = xmlReport
+    }
+
+    boolean getStopOnError() {
+        return stopOnError
+    }
+
+    void setStopOnError(boolean stopOnError) {
+        this.stopOnError = stopOnError
     }
 
     PostmanExtension(final Project project) {

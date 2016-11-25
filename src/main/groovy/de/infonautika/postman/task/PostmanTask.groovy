@@ -16,10 +16,6 @@ class PostmanTask extends DefaultTask {
 
     @TaskAction
     def exec() {
-        new NewmanRunner(project, config.collections).run()
-    }
-
-    def getConfig() {
-        return project.extensions.getByType(PostmanExtension)
+        new NewmanRunner(project).run()
     }
 }

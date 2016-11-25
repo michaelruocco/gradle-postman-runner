@@ -28,6 +28,7 @@ class NewmanConfig {
         addCollection()
         addEnvironment()
         addReporters()
+        addBail()
     }
 
     def addCollection() {
@@ -65,6 +66,10 @@ class NewmanConfig {
         }
     }
 
+    def addBail() {
+        params.add('bail', primitive(config.stopOnError))
+    }
+
     def getConfig() {
         return project.extensions.getByType(PostmanExtension)
     }
@@ -89,6 +94,10 @@ class NewmanConfig {
 
     private static JsonPrimitive primitive(String string) {
         return new JsonPrimitive(string)
+    }
+
+    private static JsonPrimitive primitive(boolean bool) {
+        return new JsonPrimitive(bool)
     }
 
     private static JsonArray array() {
