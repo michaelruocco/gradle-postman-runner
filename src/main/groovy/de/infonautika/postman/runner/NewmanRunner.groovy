@@ -51,7 +51,7 @@ class NewmanRunner {
     }
 
     private File getExistingPostmanDir() {
-        def postmanDir = new File(project.getBuildDir(), 'postmanRunner')
+        def postmanDir = new File(new File("${project.projectDir}/.gradle"), 'postmanRunner')
         if (!postmanDir.exists()) {
             if (!postmanDir.mkdirs()) {
                 throw new RuntimeException("could not create postmanRunner directory in ${postmanDir.absolutePath}")
