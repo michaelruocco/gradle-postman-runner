@@ -4,10 +4,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import de.infonautika.postman.PostmanExtension;
-import de.infonautika.postman.task.util.Json;
 import org.gradle.api.Project;
 
 import java.io.File;
+
+import static de.infonautika.postman.task.util.Json.*;
 
 class NewmanConfig {
     private Project project;
@@ -20,7 +21,7 @@ class NewmanConfig {
     }
 
     String toJson() {
-        params = Json.object();
+        params = object();
         buildParameters();
         return params.toString();
     }
@@ -33,36 +34,36 @@ class NewmanConfig {
     }
 
     private void addCollection() {
-        params.add("collection", Json.primitive(collection.toString()));
+        params.add("collection", primitive(collection.toString()));
     }
 
     private void addReporters() {
-        JsonArray reporters = Json.array();
-        JsonObject reporter = Json.object();
+        JsonArray reporters = array();
+        JsonObject reporter = object();
 
         addCli(reporters);
         addJunit(reporters, reporter);
 
-        if (!Json.empty(reporters)) {
+        if (!empty(reporters)) {
             params.add("reporters", reporters);
         }
 
-        if (!Json.empty(reporter)) {
+        if (!empty(reporter)) {
             params.add("reporter", reporter);
         }
     }
 
     private void addJunit(JsonArray reporters, JsonObject reporter) {
         if (getConfig().getXmlReportDir() != null) {
-            reporters.add(Json.primitive("junit"));
+            reporters.add(primitive("junit"));
             File xmlReportFile = new File(new File(project.getProjectDir(), getConfig().getXmlReportDir()), "TEST-postman-" + collection.getName() + ".xml");
-            reporter.add("junit", Json.object("export", Json.primitive(xmlReportFile.toString())));
+            reporter.add("junit", object("export", primitive(xmlReportFile.toString())));
         }
     }
 
     private void addCli(JsonArray reporters) {
         if (getConfig().getCliReport()) {
-            reporters.add(Json.primitive("cli"));
+            reporters.add(primitive("cli"));
         }
     }
 
@@ -73,7 +74,7 @@ class NewmanConfig {
     }
 
     private void addBail() {
-        params.add("bail", Json.primitive(getConfig().getStopOnError()));
+        params.add("bail", primitive(getConfig().getStopOnError()));
     }
 
     private PostmanExtension getConfig() {
