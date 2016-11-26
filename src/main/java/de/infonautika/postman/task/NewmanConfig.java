@@ -1,26 +1,26 @@
 package de.infonautika.postman.task;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import de.infonautika.postman.PostmanExtension;
+import de.infonautika.postman.task.util.Json;
 import org.gradle.api.Project;
 
 import java.io.File;
 
-public class NewmanConfig {
+class NewmanConfig {
     private Project project;
     private File collection;
     private JsonObject params;
 
-    public NewmanConfig(Project project, File collection) {
+    NewmanConfig(Project project, File collection) {
         this.collection = collection;
         this.project = project;
     }
 
-    public String toJson() {
-        params = object();
+    String toJson() {
+        params = Json.object();
         buildParameters();
         return params.toString();
     }
@@ -33,36 +33,36 @@ public class NewmanConfig {
     }
 
     private void addCollection() {
-        params.add("collection", primitive(collection.toString()));
+        params.add("collection", Json.primitive(collection.toString()));
     }
 
     private void addReporters() {
-        JsonArray reporters = array();
-        JsonObject reporter = object();
+        JsonArray reporters = Json.array();
+        JsonObject reporter = Json.object();
 
         addCli(reporters);
         addJunit(reporters, reporter);
 
-        if (!empty(reporters)) {
+        if (!Json.empty(reporters)) {
             params.add("reporters", reporters);
         }
 
-        if (!empty(reporter)) {
+        if (!Json.empty(reporter)) {
             params.add("reporter", reporter);
         }
     }
 
     private void addJunit(JsonArray reporters, JsonObject reporter) {
         if (getConfig().getXmlReportDir() != null) {
-            reporters.add(primitive("junit"));
+            reporters.add(Json.primitive("junit"));
             File xmlReportFile = new File(new File(project.getProjectDir(), getConfig().getXmlReportDir()), "TEST-postman-" + collection.getName() + ".xml");
-            reporter.add("junit", object("export", primitive(xmlReportFile.toString())));
+            reporter.add("junit", Json.object("export", Json.primitive(xmlReportFile.toString())));
         }
     }
 
     private void addCli(JsonArray reporters) {
         if (getConfig().getCliReport()) {
-            reporters.add(primitive("cli"));
+            reporters.add(Json.primitive("cli"));
         }
     }
 
@@ -73,40 +73,11 @@ public class NewmanConfig {
     }
 
     private void addBail() {
-        params.add("bail", primitive(getConfig().getStopOnError()));
+        params.add("bail", Json.primitive(getConfig().getStopOnError()));
     }
 
     private PostmanExtension getConfig() {
         return project.getExtensions().getByType(PostmanExtension.class);
     }
 
-    private static boolean empty(JsonObject reporter) {
-        return reporter.entrySet().size() == 0;
-    }
-
-    private static boolean empty(JsonArray reporters) {
-        return reporters.size() == 0;
-    }
-
-    private static JsonObject object() {
-        return new JsonObject();
-    }
-
-    private static JsonObject object(String key, JsonElement value) {
-        JsonObject junit = object();
-        junit.add(key, value);
-        return junit;
-    }
-
-    private static JsonPrimitive primitive(String string) {
-        return new JsonPrimitive(string);
-    }
-
-    private static JsonPrimitive primitive(boolean bool) {
-        return new JsonPrimitive(bool);
-    }
-
-    private static JsonArray array() {
-        return new JsonArray();
-    }
 }

@@ -38,7 +38,7 @@ public class DeployPostmanWrapperTask extends AbstractPostmanRunnerTask {
         }
     }
 
-    public URL getInternalWrapperUrl() {
+    private URL getInternalWrapperUrl() {
         URL wrapperScriptResource = this.getClass().getResource(getConfig().getWrapperName());
         if (wrapperScriptResource == null) {
             throw new RuntimeException("could not get wrapper script resource");
