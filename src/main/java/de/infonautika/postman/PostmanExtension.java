@@ -10,6 +10,9 @@ import java.util.Map;
 public class PostmanExtension {
     public final static String NAME = "postman";
 
+    private static final String WRAPPER_SCRIPT_NAME = "/startnewman.js";
+    public static final String GRADLE_POSTMAN_RUNNER = "/.gradle/postman-runner";
+
     private FileTree collections;
     private File environment;
     private boolean cliReport = true;
@@ -54,6 +57,14 @@ public class PostmanExtension {
 
     void setStopOnError(boolean stopOnError) {
         this.stopOnError = stopOnError;
+    }
+
+    public String getWrapperName() {
+        return WRAPPER_SCRIPT_NAME;
+    }
+
+    public String getWrapperRelativePath() {
+        return GRADLE_POSTMAN_RUNNER + getWrapperName();
     }
 
     public PostmanExtension(final Project project) {
