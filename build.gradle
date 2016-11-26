@@ -16,12 +16,3 @@ dependencies {
 
 group = 'de.infonautika.postman'
 version = '0.0.3'
-
-apply plugin: 'maven'
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: uri('/home/loc/VirtualBox VMs/Freigaben/repo'))
-        }
-    }
-}
