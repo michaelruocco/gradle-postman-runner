@@ -3,7 +3,6 @@ package de.infonautika.postman.task;
 import de.infonautika.postman.PostmanExtension;
 import org.apache.commons.io.FileUtils;
 import org.gradle.api.DefaultTask;
-import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 
@@ -41,11 +40,6 @@ public class DeployPostmanWrapperTask extends DefaultTask {
     @OutputFile
     public File getWrapperAbsolutePath() {
         return new File(getProject().getProjectDir(), getConfig().getWrapperRelativePath());
-    }
-
-    @Input
-    public String getPostmanRunnerVersion() {
-        return getProject().getVersion().toString();
     }
 
     private PostmanExtension getConfig() {
