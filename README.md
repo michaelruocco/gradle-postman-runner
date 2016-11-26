@@ -19,7 +19,7 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath 'com.github.simomat:gradle-postman-runner:0.0.1'
+        classpath 'com.github.simomat:gradle-postman-runner:0.0.3'
     }
 }
 

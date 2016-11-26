@@ -7,17 +7,21 @@ apply plugin: 'java'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-apply plugin: 'groovy'
-apply plugin: 'maven'
-
 dependencies {
     compile gradleApi()
-    compile localGroovy()
     compile 'com.moowork.gradle:gradle-node-plugin:0.13'
     compile 'org.apache.commons:commons-io:1.3.2'
     compile 'com.google.code.gson:gson:2.8.0'
 }
 
 group = 'de.infonautika.postman'
-version = '0.0.2'
+version = '0.0.3'
 
+apply plugin: 'maven'
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('/home/loc/VirtualBox VMs/Freigaben/repo'))
+        }
+    }
+}

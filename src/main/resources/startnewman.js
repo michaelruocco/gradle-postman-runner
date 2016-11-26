@@ -2,7 +2,9 @@
 
 const newman = require('newman');
 
-var config = JSON.parse(process.argv[2]);
+var config = JSON.parse(
+    unescape(process.argv[2])
+    .replace(new RegExp('<>', 'g'), '"'));
 
 newman.run(config, function(err, summary) {
     if (err) {
