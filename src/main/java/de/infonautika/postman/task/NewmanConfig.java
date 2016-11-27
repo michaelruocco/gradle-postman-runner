@@ -31,6 +31,7 @@ class NewmanConfig {
         addEnvironment();
         addReporters();
         addBail();
+        addNoColor();
     }
 
     private void addCollection() {
@@ -79,6 +80,10 @@ class NewmanConfig {
 
     private PostmanExtension getConfig() {
         return project.getExtensions().getByType(PostmanExtension.class);
+    }
+
+    private void addNoColor() {
+        params.add("noColor", primitive(true));
     }
 
 }
