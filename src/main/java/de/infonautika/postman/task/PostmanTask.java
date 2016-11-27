@@ -15,11 +15,14 @@ public class PostmanTask extends AbstractPostmanRunnerTask {
     public final static String NAME = "postman";
 
     private NodeExecRunner runner;
+    private NewmanConfig newmanConfig;
 
     public PostmanTask() {
         setGroup(GROUP_NAME);
         setDescription("executes Postman collections");
         dependsOn(asList(SetupTask.NAME, InstallNewmanTask.NAME, DeployPostmanWrapperTask.NAME));
+
+        newmanConfig = new NewmanConfig(getProject(), getConfig());
     }
 
     @TaskAction
@@ -66,7 +69,7 @@ public class PostmanTask extends AbstractPostmanRunnerTask {
     }
 
     private String getNewmanConfiguration(File collection) {
-        return new NewmanConfig(getProject(), collection).toJson().replaceAll("\"", "<>");
+        return newmanConfig.toJsonFor(collection).replaceAll("\"", "<>");
     }
 
     private void createRunner() {

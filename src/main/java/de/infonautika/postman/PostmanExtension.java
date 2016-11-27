@@ -1,5 +1,6 @@
 package de.infonautika.postman;
 
+import de.infonautika.postman.settings.NewmanSettings;
 import org.gradle.api.Project;
 import org.gradle.api.file.FileTree;
 
@@ -7,7 +8,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PostmanExtension {
+public class PostmanExtension implements NewmanSettings {
     public final static String NAME = "postman";
 
     private static final String WRAPPER_SCRIPT_NAME = "/startnewman.js";
@@ -19,6 +20,7 @@ public class PostmanExtension {
     private String xmlReportDir;
     private boolean stopOnError = false;
 
+    @Override
     public FileTree getCollections() {
         return collections;
     }
@@ -27,6 +29,7 @@ public class PostmanExtension {
         this.collections = collections;
     }
 
+    @Override
     public File getEnvironment() {
         return environment;
     }
@@ -35,6 +38,7 @@ public class PostmanExtension {
         this.environment = environment;
     }
 
+    @Override
     public boolean getCliReport() {
         return cliReport;
     }
@@ -43,6 +47,7 @@ public class PostmanExtension {
         this.cliReport = cliReporter;
     }
 
+    @Override
     public String getXmlReportDir() {
         return xmlReportDir;
     }
@@ -51,6 +56,7 @@ public class PostmanExtension {
         this.xmlReportDir = xmlReport;
     }
 
+    @Override
     public boolean getStopOnError() {
         return stopOnError;
     }
