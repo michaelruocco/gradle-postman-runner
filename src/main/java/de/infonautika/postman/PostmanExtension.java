@@ -19,6 +19,7 @@ public class PostmanExtension implements NewmanSettings {
     private boolean cliReport = true;
     private String xmlReportDir;
     private boolean stopOnError = false;
+    private boolean noColor = true;
 
     @Override
     public FileTree getCollections() {
@@ -63,6 +64,15 @@ public class PostmanExtension implements NewmanSettings {
 
     void setStopOnError(boolean stopOnError) {
         this.stopOnError = stopOnError;
+    }
+
+    @Override
+    public boolean getNoColor() {
+        return noColor;
+    }
+
+    public void setNoColor(boolean noColor) {
+        this.noColor = noColor;
     }
 
     public static String getWrapperName() {

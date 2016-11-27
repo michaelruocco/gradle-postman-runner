@@ -90,7 +90,7 @@ class NewmanConfig {
         }
 
         private void addNoColor() {
-            params.add("noColor", primitive(true));
+            params.add("noColor", primitive(settings.getNoColor()));
         }
     }
 

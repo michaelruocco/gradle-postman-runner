@@ -113,4 +113,8 @@ public class PostmanTask extends AbstractPostmanRunnerTask {
     public void setStopOnError(boolean stopOnError) {
         settings.setStopOnError(stopOnError);
     }
+
+    public void setNoColor(boolean noColor) {
+        settings.setNoColor(noColor);
+    }
 }

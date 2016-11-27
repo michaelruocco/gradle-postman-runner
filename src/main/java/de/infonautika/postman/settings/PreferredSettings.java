@@ -12,6 +12,7 @@ public class PreferredSettings implements NewmanSettings {
     private Boolean cliReport;
     private String xmlReportDir;
     private Boolean stopOnError;
+    private Boolean noColor;
 
     public PreferredSettings(Supplier<NewmanSettings> defaultSettings) {
         this.defaultSettings = defaultSettings;
@@ -57,6 +58,14 @@ public class PreferredSettings implements NewmanSettings {
         return stopOnError;
     }
 
+    @Override
+    public boolean getNoColor() {
+        if (noColor == null) {
+            return defaultSettings.get().getNoColor();
+        }
+        return noColor;
+    }
+
     public void setCollections(FileTree collections) {
         this.collections = collections;
     }
@@ -75,5 +84,9 @@ public class PreferredSettings implements NewmanSettings {
 
     public void setStopOnError(boolean stopOnError) {
         this.stopOnError = stopOnError;
+    }
+
+    public void setNoColor(boolean noColor) {
+        this.noColor = noColor;
     }
 }

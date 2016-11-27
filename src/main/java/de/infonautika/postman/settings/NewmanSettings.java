@@ -14,4 +14,6 @@ public interface NewmanSettings {
     String getXmlReportDir();
 
     boolean getStopOnError();
+
+    boolean getNoColor();
 }
