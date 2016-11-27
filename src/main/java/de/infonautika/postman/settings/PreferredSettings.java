@@ -1,25 +1,26 @@
 package de.infonautika.postman.settings;
 
+import de.infonautika.postman.task.util.Supplier;
 import org.gradle.api.file.FileTree;
 
 import java.io.File;
 
 public class PreferredSettings implements NewmanSettings {
-    private NewmanSettings defaultSettings;
+    private Supplier<NewmanSettings> defaultSettings;
     private FileTree collections;
     private File environment;
     private Boolean cliReport;
     private String xmlReportDir;
     private Boolean stopOnError;
 
-    public PreferredSettings(NewmanSettings defaultSettings) {
+    public PreferredSettings(Supplier<NewmanSettings> defaultSettings) {
         this.defaultSettings = defaultSettings;
     }
 
     @Override
     public FileTree getCollections() {
         if (collections == null) {
-            return defaultSettings.getCollections();
+            return defaultSettings.get().getCollections();
         }
         return collections;
     }
@@ -27,7 +28,7 @@ public class PreferredSettings implements NewmanSettings {
     @Override
     public File getEnvironment() {
         if (environment == null) {
-            return defaultSettings.getEnvironment();
+            return defaultSettings.get().getEnvironment();
         }
         return environment;
     }
@@ -35,7 +36,7 @@ public class PreferredSettings implements NewmanSettings {
     @Override
     public boolean getCliReport() {
         if (cliReport == null) {
-            return defaultSettings.getCliReport();
+            return defaultSettings.get().getCliReport();
         }
         return cliReport;
     }
@@ -43,7 +44,7 @@ public class PreferredSettings implements NewmanSettings {
     @Override
     public String getXmlReportDir() {
         if (xmlReportDir == null) {
-            return defaultSettings.getXmlReportDir();
+            return defaultSettings.get().getXmlReportDir();
         }
         return xmlReportDir;
     }
@@ -51,7 +52,7 @@ public class PreferredSettings implements NewmanSettings {
     @Override
     public boolean getStopOnError() {
         if (stopOnError == null) {
-            return defaultSettings.getStopOnError();
+            return defaultSettings.get().getStopOnError();
         }
         return stopOnError;
     }

@@ -3,7 +3,9 @@ package de.infonautika.postman.task;
 import com.moowork.gradle.node.exec.NodeExecRunner;
 import com.moowork.gradle.node.task.SetupTask;
 import de.infonautika.postman.PostmanExtension;
+import de.infonautika.postman.settings.NewmanSettings;
 import de.infonautika.postman.settings.PreferredSettings;
+import de.infonautika.postman.task.util.Supplier;
 import org.gradle.api.GradleException;
 import org.gradle.api.file.FileTree;
 import org.gradle.api.tasks.TaskAction;
@@ -30,7 +32,13 @@ public class PostmanTask extends AbstractPostmanRunnerTask {
     }
 
     private void buildConfig() {
-        settings = new PreferredSettings(getProject().getExtensions().getByType(PostmanExtension.class));
+        settings = new PreferredSettings(new Supplier<NewmanSettings>() {
+            @Override
+            public NewmanSettings get() {
+                return getProject().getExtensions().getByType(PostmanExtension.class);
+            }
+
+        });
         newmanConfig = new NewmanConfig(getProject(), settings);
     }
 
