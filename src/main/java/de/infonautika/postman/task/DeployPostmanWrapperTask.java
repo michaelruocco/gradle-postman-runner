@@ -1,8 +1,6 @@
 package de.infonautika.postman.task;
 
 import org.apache.commons.io.FileUtils;
-import org.gradle.api.Action;
-import org.gradle.api.Project;
 import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 
@@ -10,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+import static de.infonautika.postman.PostmanExtension.getWrapperName;
 import static de.infonautika.postman.PostmanRunnerPlugin.GROUP_NAME;
 
 public class DeployPostmanWrapperTask extends AbstractPostmanRunnerTask {
@@ -23,14 +22,14 @@ public class DeployPostmanWrapperTask extends AbstractPostmanRunnerTask {
     @TaskAction
     public void createNewmanWrapper() {
         try {
-            FileUtils.copyURLToFile(getInternalWrapperUrl(), getWrapperAbsolutePath());
+            FileUtils.copyURLToFile(getInternalWrapperUrl(), getWrapper());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     private URL getInternalWrapperUrl() {
-        URL wrapperScriptResource = this.getClass().getResource(getConfig().getWrapperName());
+        URL wrapperScriptResource = this.getClass().getResource(getWrapperName());
         if (wrapperScriptResource == null) {
             throw new RuntimeException("could not get wrapper script resource");
         }
