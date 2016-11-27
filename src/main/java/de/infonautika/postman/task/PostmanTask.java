@@ -2,7 +2,10 @@ package de.infonautika.postman.task;
 
 import com.moowork.gradle.node.exec.NodeExecRunner;
 import com.moowork.gradle.node.task.SetupTask;
+import de.infonautika.postman.PostmanExtension;
+import de.infonautika.postman.settings.PreferredSettings;
 import org.gradle.api.GradleException;
+import org.gradle.api.file.FileTree;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.process.internal.ExecException;
 
@@ -16,13 +19,19 @@ public class PostmanTask extends AbstractPostmanRunnerTask {
 
     private NodeExecRunner runner;
     private NewmanConfig newmanConfig;
+    private PreferredSettings settings;
 
     public PostmanTask() {
         setGroup(GROUP_NAME);
         setDescription("executes Postman collections");
         dependsOn(asList(SetupTask.NAME, InstallNewmanTask.NAME, DeployPostmanWrapperTask.NAME));
 
-        newmanConfig = new NewmanConfig(getProject(), getConfig());
+        buildConfig();
+    }
+
+    private void buildConfig() {
+        settings = new PreferredSettings(getProject().getExtensions().getByType(PostmanExtension.class));
+        newmanConfig = new NewmanConfig(getProject(), settings);
     }
 
     @TaskAction
@@ -34,14 +43,14 @@ public class PostmanTask extends AbstractPostmanRunnerTask {
     }
 
     private boolean runCollections() {
-        if (getConfig().getStopOnError()) {
+        if (getProject().getExtensions().getByType(PostmanExtension.class).getStopOnError()) {
             return runUntilFail();
         }
         return runAllCollections();
     }
 
     private boolean runUntilFail() {
-        for (File collection : getConfig().getCollections()) {
+        for (File collection : getProject().getExtensions().getByType(PostmanExtension.class).getCollections()) {
             if (!runSingleCollection(collection)) {
                 return false;
             }
@@ -51,7 +60,7 @@ public class PostmanTask extends AbstractPostmanRunnerTask {
 
     private boolean runAllCollections() {
         boolean success = true;
-        for (File collection : getConfig().getCollections()) {
+        for (File collection : getProject().getExtensions().getByType(PostmanExtension.class).getCollections()) {
             success &= runSingleCollection(collection);
         }
         return success;
@@ -74,6 +83,26 @@ public class PostmanTask extends AbstractPostmanRunnerTask {
 
     private void createRunner() {
         runner = new NodeExecRunner(getProject());
-        runner.setIgnoreExitValue(!getConfig().getStopOnError());
+        runner.setIgnoreExitValue(!getProject().getExtensions().getByType(PostmanExtension.class).getStopOnError());
+    }
+
+    public void setCollections(FileTree collections) {
+        settings.setCollections(collections);
+    }
+
+    public void setEnvironment(File environment) {
+        settings.setEnvironment(environment);
+    }
+
+    public void setCliReport(boolean cliReport) {
+        settings.setCliReport(cliReport);
+    }
+
+    public void setXmlReportDir(String xmlReportDir) {
+        settings.setXmlReportDir(xmlReportDir);
+    }
+
+    public void setStopOnError(boolean stopOnError) {
+        settings.setStopOnError(stopOnError);
     }
 }
