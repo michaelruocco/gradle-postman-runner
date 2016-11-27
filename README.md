@@ -8,11 +8,9 @@ By default, all postman collection files (ending with `.postman_collection.json`
 
 #### Usage
 
-###### Configure your gradle file
-
 ```
 // postmanrunner is not available in a common repository right now
-// maybe you want to use jitpack to check out master directly?
+// maybe you want to use jitpack to check out from github directly?
 buildscript {
     repositories {
         jcenter()
@@ -32,40 +30,46 @@ apply plugin: 'postmanrunner'
 node {
    download = true
 }
+```
+
+That's all needed to execute the postman task:
+`gradle postman`
+
+An optional configuration of postman itself is done with the `postman` extension:
+
+```
 
 // postmanrunner configuration
 postman {
-    // optional: specify collection file pattern
+    // specifies collection file pattern
     // default: src/test/**/*.postman_collection.json
     collections = fileTree(dir: 'src/test', include: '**/*.myCollection*')
     
-    // optional: specify the test environment to execute the collections with
+    // specifies the test environment to execute the collections with
     // default: no environment
     environment = file('src/test/some_environment.postman_environment.json')
 
-    // optional: report to stdout
+    // reports to stdout
     // default: true
     cliReport = false
     
-    // optional: create junit compatible XML result files in directory
+    // creates junit compatible XML result files in directory
     // default: off
     xmlReportDir = 'build/testoutput'
     
-    // optional: stop entire execution on first failing test in a collection
+    // stops entire execution on first failing test in a collection
     // default: false
     stopOnError = true
 }
 
 ```
 
-###### Apply the task
+Besides a global configuration with the 'postman' extension as seen above, it's also possible to create a custom task and override the global configuration (if any given):
 
 ```
-gradle postman
+task postmanOnDifferentEnvifonment(type: de.infonautika.postman.task.PostmanTask) {
+    environment = file('different_environment.postman_environment.json')
+    stopOnError = false
+}
 ```
 
-
-#### Things to be done
-- [x] more configure options
-- [x] more result processing
-- [ ] parallel execution
