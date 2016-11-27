@@ -43,14 +43,14 @@ public class PostmanTask extends AbstractPostmanRunnerTask {
     }
 
     private boolean runCollections() {
-        if (getProject().getExtensions().getByType(PostmanExtension.class).getStopOnError()) {
+        if (settings.getStopOnError()) {
             return runUntilFail();
         }
         return runAllCollections();
     }
 
     private boolean runUntilFail() {
-        for (File collection : getProject().getExtensions().getByType(PostmanExtension.class).getCollections()) {
+        for (File collection : settings.getCollections()) {
             if (!runSingleCollection(collection)) {
                 return false;
             }
@@ -60,7 +60,7 @@ public class PostmanTask extends AbstractPostmanRunnerTask {
 
     private boolean runAllCollections() {
         boolean success = true;
-        for (File collection : getProject().getExtensions().getByType(PostmanExtension.class).getCollections()) {
+        for (File collection : settings.getCollections()) {
             success &= runSingleCollection(collection);
         }
         return success;
@@ -83,7 +83,7 @@ public class PostmanTask extends AbstractPostmanRunnerTask {
 
     private void createRunner() {
         runner = new NodeExecRunner(getProject());
-        runner.setIgnoreExitValue(!getProject().getExtensions().getByType(PostmanExtension.class).getStopOnError());
+        runner.setIgnoreExitValue(!settings.getStopOnError());
     }
 
     public void setCollections(FileTree collections) {
