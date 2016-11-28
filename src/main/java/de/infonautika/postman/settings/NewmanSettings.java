@@ -16,4 +16,6 @@ public interface NewmanSettings {
     boolean getStopOnError();
 
     boolean getNoColor();
+
+    boolean getDisableUnicode();
 }

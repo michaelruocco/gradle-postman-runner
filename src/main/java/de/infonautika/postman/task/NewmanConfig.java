@@ -43,6 +43,7 @@ class NewmanConfig {
             addReporters();
             addBail();
             addNoColor();
+            addDisableUnicode();
         }
 
         private void addCollection() {
@@ -91,6 +92,10 @@ class NewmanConfig {
 
         private void addNoColor() {
             params.add("noColor", primitive(settings.getNoColor()));
+        }
+
+        private void addDisableUnicode() {
+            params.add("disableUnicode", primitive(settings.getDisableUnicode()));
         }
     }
 

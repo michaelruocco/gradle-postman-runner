@@ -13,6 +13,7 @@ public class PreferredSettings implements NewmanSettings {
     private String xmlReportDir;
     private Boolean stopOnError;
     private Boolean noColor;
+    private Boolean disableUnicode;
 
     public PreferredSettings(Supplier<NewmanSettings> defaultSettings) {
         this.defaultSettings = defaultSettings;
@@ -66,6 +67,14 @@ public class PreferredSettings implements NewmanSettings {
         return noColor;
     }
 
+    @Override
+    public boolean getDisableUnicode() {
+        if (disableUnicode == null) {
+            return defaultSettings.get().getDisableUnicode();
+        }
+        return disableUnicode;
+    }
+
     public void setCollections(FileTree collections) {
         this.collections = collections;
     }
@@ -88,5 +97,9 @@ public class PreferredSettings implements NewmanSettings {
 
     public void setNoColor(boolean noColor) {
         this.noColor = noColor;
+    }
+
+    public void setDisableUnicode(boolean disableUnicode) {
+        this.disableUnicode = disableUnicode;
     }
 }

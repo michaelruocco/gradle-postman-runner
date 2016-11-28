@@ -117,4 +117,8 @@ public class PostmanTask extends AbstractPostmanRunnerTask {
     public void setNoColor(boolean noColor) {
         settings.setNoColor(noColor);
     }
+
+    public void setDisableUnicode(boolean disableUnicode) {
+        settings.setDisableUnicode(disableUnicode);
+    }
 }

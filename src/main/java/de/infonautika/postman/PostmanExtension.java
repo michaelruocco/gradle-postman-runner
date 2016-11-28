@@ -20,6 +20,7 @@ public class PostmanExtension implements NewmanSettings {
     private String xmlReportDir;
     private boolean stopOnError = false;
     private boolean noColor = true;
+    private boolean disableUnicode = false;
 
     @Override
     public FileTree getCollections() {
@@ -71,6 +72,11 @@ public class PostmanExtension implements NewmanSettings {
         return noColor;
     }
 
+    @Override
+    public boolean getDisableUnicode() {
+        return disableUnicode;
+    }
+
     public void setNoColor(boolean noColor) {
         this.noColor = noColor;
     }
@@ -81,6 +87,10 @@ public class PostmanExtension implements NewmanSettings {
 
     public static String getWrapperRelativePath() {
         return GRADLE_POSTMAN_RUNNER + getWrapperName();
+    }
+
+    public void setDisableUnicode(boolean disableUnicode) {
+        this.disableUnicode = disableUnicode;
     }
 
     public PostmanExtension(final Project project) {
