@@ -1,4 +1,4 @@
-package de.infonautika.postman.task;
+package de.infonautika.postman.newman;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

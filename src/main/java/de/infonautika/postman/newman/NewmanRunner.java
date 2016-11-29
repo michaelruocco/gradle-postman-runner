@@ -1,7 +1,6 @@
-package de.infonautika.postman.task;
+package de.infonautika.postman.newman;
 
 import com.moowork.gradle.node.exec.NodeExecRunner;
-import de.infonautika.postman.NewmanWrapper;
 import de.infonautika.postman.settings.PreferredSettings;
 import org.gradle.api.Project;
 import org.gradle.process.internal.ExecException;

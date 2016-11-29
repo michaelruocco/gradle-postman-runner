@@ -1,4 +1,4 @@
-package de.infonautika.postman;
+package de.infonautika.postman.newman;
 
 import org.gradle.api.Project;
 

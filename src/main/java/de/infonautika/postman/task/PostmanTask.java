@@ -2,6 +2,7 @@ package de.infonautika.postman.task;
 
 import com.moowork.gradle.node.task.SetupTask;
 import de.infonautika.postman.PostmanExtension;
+import de.infonautika.postman.newman.NewmanRunner;
 import de.infonautika.postman.settings.NewmanSettings;
 import de.infonautika.postman.settings.PreferredSettings;
 import de.infonautika.postman.task.util.Supplier;
