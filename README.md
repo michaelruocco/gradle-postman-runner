@@ -8,7 +8,7 @@ By default, all postman collection files (ending with `.postman_collection.json`
 
 #### Usage
 
-```
+```groovy
 // postmanrunner is not available in a common repository right now
 // maybe you want to use jitpack to check out from github directly?
 buildscript {
@@ -37,7 +37,7 @@ That's all needed to execute the postman task:
 
 An optional configuration of postman itself is done with the `postman` extension:
 
-```
+```groovy
 
 // postmanrunner configuration
 postman {
@@ -66,7 +66,7 @@ postman {
 
 Besides a global configuration with the 'postman' extension as seen above, it's also possible to create a custom task and override the global configuration (if any given):
 
-```
+```groovy
 task postmanOnDifferentEnvifonment(type: de.infonautika.postman.task.PostmanTask) {
     environment = file('different_environment.postman_environment.json')
     stopOnError = false
