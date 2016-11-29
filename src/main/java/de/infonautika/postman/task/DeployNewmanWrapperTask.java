@@ -1,6 +1,8 @@
 package de.infonautika.postman.task;
 
+import de.infonautika.postman.NewmanWrapper;
 import org.apache.commons.io.FileUtils;
+import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 
@@ -8,19 +10,19 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import static de.infonautika.postman.PostmanExtension.getWrapperName;
+import static de.infonautika.postman.NewmanWrapper.getWrapperName;
 import static de.infonautika.postman.PostmanRunnerPlugin.GROUP_NAME;
 
-public class DeployPostmanWrapperTask extends AbstractPostmanRunnerTask {
+public class DeployNewmanWrapperTask extends DefaultTask {
     public final static String NAME = "deployWrapper";
 
-    public DeployPostmanWrapperTask() {
+    public DeployNewmanWrapperTask() {
         setGroup(GROUP_NAME);
         setDescription("executes Postman collections");
     }
 
     @TaskAction
-    public void createNewmanWrapper() {
+    public void deployNewmanWrapper() {
         try {
             FileUtils.copyURLToFile(getInternalWrapperUrl(), getWrapper());
         } catch (IOException e) {
@@ -38,6 +40,6 @@ public class DeployPostmanWrapperTask extends AbstractPostmanRunnerTask {
 
     @OutputFile
     public File getWrapper() {
-        return getWrapperAbsolutePath();
+        return new NewmanWrapper(getProject()).getWrapperAbsolutePath();
     }
 }

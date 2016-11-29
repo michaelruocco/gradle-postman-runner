@@ -11,9 +11,6 @@ import java.util.Map;
 public class PostmanExtension implements NewmanSettings {
     public final static String NAME = "postman";
 
-    private static final String WRAPPER_SCRIPT_NAME = "/startnewman.js";
-    private static final String GRADLE_POSTMAN_RUNNER = "/.gradle/postman-runner";
-
     private FileTree collections;
     private File environment;
     private boolean cliReport = true;
@@ -79,14 +76,6 @@ public class PostmanExtension implements NewmanSettings {
 
     public void setNoColor(boolean noColor) {
         this.noColor = noColor;
-    }
-
-    public static String getWrapperName() {
-        return WRAPPER_SCRIPT_NAME;
-    }
-
-    public static String getWrapperRelativePath() {
-        return GRADLE_POSTMAN_RUNNER + getWrapperName();
     }
 
     public void setDisableUnicode(boolean disableUnicode) {

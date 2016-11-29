@@ -3,6 +3,7 @@ package de.infonautika.postman.task;
 import com.moowork.gradle.node.NodeExtension;
 import com.moowork.gradle.node.task.NpmSetupTask;
 import com.moowork.gradle.node.task.NpmTask;
+import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.OutputDirectory;
 
 import java.io.File;
@@ -17,7 +18,7 @@ public class InstallNewmanTask extends NpmTask {
         this.setGroup(GROUP_NAME);
         this.setDescription("Install newman packages");
         setNpmCommand("install");
-        setArgs(singletonList("newman"));
+        setArgs(singletonList("newman" + getNewmanVersionString()));
         dependsOn(NpmSetupTask.NAME);
     }
 
@@ -25,5 +26,11 @@ public class InstallNewmanTask extends NpmTask {
     public File getNewmanOutputDir() {
         return new File(getProject().getExtensions().getByType(NodeExtension.class).getNodeModulesDir(),
                 "node_modules/newman");
+    }
+
+    @Input
+    public String getNewmanVersionString() {
+        // TODO: 29.11.16 make version configurable
+        return "";
     }
 }

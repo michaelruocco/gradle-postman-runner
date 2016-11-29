@@ -23,12 +23,12 @@ class NewmanConfig {
         return new JsonBuilder(collection).build();
     }
 
-    class JsonBuilder {
+    private class JsonBuilder {
 
         private JsonObject params = object();
         private File collection;
 
-        public JsonBuilder(File collection) {
+        JsonBuilder(File collection) {
             this.collection = collection;
         }
 
