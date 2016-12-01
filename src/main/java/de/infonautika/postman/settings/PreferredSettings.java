@@ -11,6 +11,9 @@ public class PreferredSettings implements NewmanSettings {
     private File environment;
     private Boolean cliReport;
     private String xmlReportDir;
+    private String htmlReportDir;
+    private String htmlTemplate;
+    private String jsonReportDir;
     private Boolean stopOnError;
     private Boolean noColor;
     private Boolean disableUnicode;
@@ -22,7 +25,7 @@ public class PreferredSettings implements NewmanSettings {
     @Override
     public FileTree getCollections() {
         if (collections == null) {
-            return defaultSettings.get().getCollections();
+            return getNewmanSettings().getCollections();
         }
         return collections;
     }
@@ -30,7 +33,7 @@ public class PreferredSettings implements NewmanSettings {
     @Override
     public File getEnvironment() {
         if (environment == null) {
-            return defaultSettings.get().getEnvironment();
+            return getNewmanSettings().getEnvironment();
         }
         return environment;
     }
@@ -38,7 +41,7 @@ public class PreferredSettings implements NewmanSettings {
     @Override
     public boolean getCliReport() {
         if (cliReport == null) {
-            return defaultSettings.get().getCliReport();
+            return getNewmanSettings().getCliReport();
         }
         return cliReport;
     }
@@ -46,15 +49,39 @@ public class PreferredSettings implements NewmanSettings {
     @Override
     public String getXmlReportDir() {
         if (xmlReportDir == null) {
-            return defaultSettings.get().getXmlReportDir();
+            return getNewmanSettings().getXmlReportDir();
         }
         return xmlReportDir;
     }
 
     @Override
+    public String getHtmlReportDir() {
+        if (htmlReportDir == null) {
+            return getNewmanSettings().getHtmlReportDir();
+        }
+        return htmlReportDir;
+    }
+
+    @Override
+    public String getHtmlTemplate() {
+        if (htmlReportDir == null) {
+            return getNewmanSettings().getHtmlTemplate();
+        }
+        return htmlTemplate;
+    }
+
+    @Override
+    public String getJsonReportDir() {
+        if (jsonReportDir == null) {
+            return getNewmanSettings().getJsonReportDir();
+        }
+        return jsonReportDir;
+    }
+
+    @Override
     public boolean getStopOnError() {
         if (stopOnError == null) {
-            return defaultSettings.get().getStopOnError();
+            return getNewmanSettings().getStopOnError();
         }
         return stopOnError;
     }
@@ -62,7 +89,7 @@ public class PreferredSettings implements NewmanSettings {
     @Override
     public boolean getNoColor() {
         if (noColor == null) {
-            return defaultSettings.get().getNoColor();
+            return getNewmanSettings().getNoColor();
         }
         return noColor;
     }
@@ -70,7 +97,7 @@ public class PreferredSettings implements NewmanSettings {
     @Override
     public boolean getDisableUnicode() {
         if (disableUnicode == null) {
-            return defaultSettings.get().getDisableUnicode();
+            return getNewmanSettings().getDisableUnicode();
         }
         return disableUnicode;
     }
@@ -101,5 +128,21 @@ public class PreferredSettings implements NewmanSettings {
 
     public void setDisableUnicode(boolean disableUnicode) {
         this.disableUnicode = disableUnicode;
+    }
+
+    public void setHtmlReportDir(String htmlReportDir) {
+        this.htmlReportDir = htmlReportDir;
+    }
+
+    public void setHtmlTemplate(String htmlTemplate) {
+        this.htmlTemplate = htmlTemplate;
+    }
+
+    public void setJsonReportDir(String jsonReportDir) {
+        this.jsonReportDir = jsonReportDir;
+    }
+
+    private NewmanSettings getNewmanSettings() {
+        return defaultSettings.get();
     }
 }

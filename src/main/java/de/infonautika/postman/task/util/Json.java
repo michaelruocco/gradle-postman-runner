@@ -1,7 +1,6 @@
 package de.infonautika.postman.task.util;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
@@ -18,10 +17,10 @@ public final class Json {
         return new JsonObject();
     }
 
-    public static JsonObject object(String key, JsonElement value) {
-        JsonObject junit = object();
-        junit.add(key, value);
-        return junit;
+    public static JsonObject object(String key, String value) {
+        JsonObject object = object();
+        object.addProperty(key, value);
+        return object;
     }
 
     public static JsonPrimitive primitive(String string) {

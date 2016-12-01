@@ -15,6 +15,9 @@ public class PostmanExtension implements NewmanSettings {
     private File environment;
     private boolean cliReport = true;
     private String xmlReportDir;
+    private String htmlReportDir;
+    private String htmlTemplate;
+    private String jsonReportDir;
     private boolean stopOnError = false;
     private boolean noColor = true;
     private boolean disableUnicode = false;
@@ -51,6 +54,21 @@ public class PostmanExtension implements NewmanSettings {
         return xmlReportDir;
     }
 
+    @Override
+    public String getHtmlReportDir() {
+        return htmlReportDir;
+    }
+
+    @Override
+    public String getHtmlTemplate() {
+        return htmlTemplate;
+    }
+
+    @Override
+    public String getJsonReportDir() {
+        return jsonReportDir;
+    }
+
     public void setXmlReportDir(String xmlReport) {
         this.xmlReportDir = xmlReport;
     }
@@ -80,6 +98,18 @@ public class PostmanExtension implements NewmanSettings {
 
     public void setDisableUnicode(boolean disableUnicode) {
         this.disableUnicode = disableUnicode;
+    }
+
+    public void setHtmlReportDir(String htmlReportDir) {
+        this.htmlReportDir = htmlReportDir;
+    }
+
+    public void setHtmlTemplate(String htmlTemplate) {
+        this.htmlTemplate = htmlTemplate;
+    }
+
+    public void setJsonReportDir(String jsonReportDir) {
+        this.jsonReportDir = jsonReportDir;
     }
 
     public PostmanExtension(final Project project) {

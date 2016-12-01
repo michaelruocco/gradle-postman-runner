@@ -13,6 +13,12 @@ public interface NewmanSettings {
 
     String getXmlReportDir();
 
+    String getHtmlReportDir();
+
+    String getHtmlTemplate();
+
+    String getJsonReportDir();
+
     boolean getStopOnError();
 
     boolean getNoColor();

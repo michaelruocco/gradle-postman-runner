@@ -9,12 +9,10 @@ var config = JSON.parse(
 newman.run(config, function(err, summary) {
     if (err) {
        console.log(JSON.stringify(err, null, 1));
-       var failed = true;
+       process.exit(2);
     } else {
-       var failed = summary.run.failures && summary.run.failures.length > 0;
-    }
-
-    if (failed) {
-        process.exit(1);
+        if (summary.run.failures && summary.run.failures.length > 0) {
+            process.exit(1);
+        }
     }
 });
