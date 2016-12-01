@@ -49,22 +49,39 @@ postman {
     // default: no environment
     environment = file('src/test/some_environment.postman_environment.json')
 
+    // stops entire execution on first failing test in a collection
+    // default: false
+    stopOnError = true
+
     // reports to stdout
     // default: true
     cliReport = false
+    
+    // when windows gives you lemons on cli output...
+    // default: false
+    disableUnicode = false
     
     // creates junit compatible XML result files in directory
     // default: off
     xmlReportDir = 'build/testoutput'
     
-    // stops entire execution on first failing test in a collection
-    // default: false
-    stopOnError = true
+    // adds html output with default template to given path
+    // default: off
+    htmlReportDir = 'build/tesdtoutput/html'
+    
+    // define a handlebars template for html output
+    // default: newman's default template https://github.com/postmanlabs/newman/blob/develop/lib/reporters/html/template-default.hbs
+    htmlTemplate = 'custom-template.hbs'
+    
+    // adds plain json output with default template to given path
+    // default: off
+    jsonReportDir = 'build/tesdtoutput/json'
 }
 
 ```
 
-Besides a global configuration with the 'postman' extension as seen above, it's also possible to create a custom task and override the global configuration (if any given):
+
+Besides a global configuration with the 'postman' extension as seen above, it's also possible to create a custom task and override all of the global configuration values (if any given):
 
 ```groovy
 task postmanOnDifferentEnvifonment(type: de.infonautika.postman.task.PostmanTask) {
