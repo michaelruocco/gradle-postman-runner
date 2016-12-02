@@ -2,6 +2,10 @@
 buildscript {
     repositories {
         jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "com.gradle.publish:plugin-publish-plugin:0.9.6"
     }
 }
 
@@ -18,6 +22,7 @@ allprojects {
     }
     apply plugin: 'maven'
     apply plugin: 'maven-publish'
+    apply plugin: 'com.gradle.plugin-publish'
     apply plugin: 'java'
 }
 
@@ -61,8 +66,8 @@ bintray {
     key = System.getenv('BINTRAY_KEY')
     publications = ['PostmanRunnerPublication']
 
-    dryRun = true
-    publish = false
+    dryRun = false
+    publish = true
 
     pkg {
         repo = 'maven'
@@ -80,6 +85,20 @@ bintray {
             desc = 'Gradle plugin to run postman'
             released  = new Date()
             vcsTag = '0.0.4'
+        }
+    }
+}
+
+pluginBundle {
+    website = 'https://github.com/simomat/gradle-postman-runner'
+    vcsUrl = 'https://github.com/simomat/gradle-postman-runner.git'
+    description = 'Gradle plugin to run postman'
+    tags = ['postman', 'newman']
+
+    plugins {
+        postmanRunner {
+            id = 'de.infonautika.postman'
+            displayName = 'Gradle plugin to run postman'
         }
     }
 }

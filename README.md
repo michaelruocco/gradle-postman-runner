@@ -8,25 +8,34 @@ By default, all postman collection files (ending with `.postman_collection.json`
 
 #### Usage
 
+For gradle version < 2.1:
+
 ```groovy
-// postmanrunner is not available in a common repository right now
-// maybe you want to use jitpack to check out from github directly?
 buildscript {
-    repositories {
-        jcenter()
-        maven { url "https://jitpack.io" }
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
     }
-    dependencies {
-        classpath 'com.github.simomat:gradle-postman-runner:0.0.3'
-    }
+  }
+  dependencies {
+    classpath "gradle.plugin.de.infonautika.postman:postman-runner:0.0.4"
+  }
 }
 
+apply plugin: "de.infonautika.postman"
+```
 
-apply plugin: 'de.infonautika.postman'
+For newer gradle versions:
 
-// configure gradle-node-plugin
-// at least download has to be enabled as of version 0.13
-// see gradle-node-plugin documentation for more options
+```groovy
+plugins {
+  id "de.infonautika.postman" version "0.0.4"
+}
+```
+
+If not already done, you may want to configure the gradle-node-plugin. At least download has to be enabled as of version 0.13. See [gradle-node-plugin](https://github.com/srs/gradle-node-plugin) documentation for more options.
+
+```groovy
 node {
    download = true
 }
