@@ -22,7 +22,7 @@ buildscript {
 }
 
 
-apply plugin: 'postmanrunner'
+apply plugin: 'de.infonautika.postman'
 
 // configure gradle-node-plugin
 // at least download has to be enabled as of version 0.13
