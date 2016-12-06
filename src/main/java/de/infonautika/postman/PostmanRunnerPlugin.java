@@ -1,6 +1,5 @@
 package de.infonautika.postman;
 
-import com.moowork.gradle.node.NodePlugin;
 import de.infonautika.postman.task.DeployNewmanWrapperTask;
 import de.infonautika.postman.task.InstallNewmanTask;
 import de.infonautika.postman.task.PostmanTask;
@@ -12,6 +11,8 @@ import java.util.Map;
 
 public class PostmanRunnerPlugin implements Plugin<Project> {
 
+    private static final String COM_MOOWORK_NODE = "com.moowork.node";
+
     public final static String GROUP_NAME = "Postman";
 
     @Override
@@ -19,7 +20,7 @@ public class PostmanRunnerPlugin implements Plugin<Project> {
         createTasks(project);
         createExtension(project);
 
-        new NodePlugin().apply(project);
+        project.getPluginManager().apply(COM_MOOWORK_NODE);
     }
 
     private void createExtension(Project project) {
