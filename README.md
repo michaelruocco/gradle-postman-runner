@@ -18,7 +18,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "gradle.plugin.de.infonautika.postman:postman-runner:0.0.4"
+    classpath "gradle.plugin.de.infonautika.postman:postman-runner:0.0.5"
   }
 }
 
@@ -29,7 +29,7 @@ For newer gradle versions:
 
 ```groovy
 plugins {
-  id "de.infonautika.postman" version "0.0.4"
+  id "de.infonautika.postman" version "0.0.5"
 }
 ```
 

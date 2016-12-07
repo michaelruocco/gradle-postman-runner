@@ -14,7 +14,7 @@ plugins {
 }
 
 group = 'de.infonautika.postman'
-version = '0.0.4'
+version = '0.0.5'
 
 allprojects {
     repositories {
@@ -84,7 +84,7 @@ bintray {
             name = "${project.version}"
             desc = 'Gradle plugin to run postman'
             released  = new Date()
-            vcsTag = '0.0.4'
+            vcsTag = '0.0.5'
         }
     }
 }
