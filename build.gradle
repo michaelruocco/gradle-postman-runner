@@ -13,7 +13,7 @@ plugins {
     id "com.jfrog.bintray" version "1.7"
 }
 
-group = 'com.samk.postman'
+group = 'de.infonautika'
 version = '0.0.7'
 
 allprojects {
@@ -54,7 +54,7 @@ publishing {
     publications {
         PostmanRunnerPublication(MavenPublication) {
             from components.java
-            groupId 'com.samk.postman'
+            groupId 'de.infonautika'
             artifactId 'postman-runner'
             artifact sourcesJar
             version "${project.version}"
@@ -63,8 +63,8 @@ publishing {
 }
 
 bintray {
-    user = 'sakthiveltk'
-    key = 'com.samk.postman'
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
     publications = ['PostmanRunnerPublication']
 
     dryRun = false
@@ -74,11 +74,11 @@ bintray {
         repo = 'maven'
         name = 'postmanrunner'
         licenses = ['Apache-2.0']
-        websiteUrl = 'https://github.com/sakthiveltk/gradle-postman-runner'
-        issueTrackerUrl = 'https://github.com/sakthiveltk/gradle-postman-runner/issues'
-        vcsUrl = 'https://github.com/sakthiveltk/gradle-postman-runner.git'
+        websiteUrl = 'https://github.com/simomat/gradle-postman-runner'
+        issueTrackerUrl = 'https://github.com/simomat/gradle-postman-runner/issues'
+        vcsUrl = 'https://github.com/simomat/gradle-postman-runner.git'
         labels = ['postman', 'newman', 'gradle']
-        githubRepo = 'sakthiveltk/gradle-postman-runner'
+        githubRepo = 'simomat/gradle-postman-runner'
         githubReleaseNotesFile = 'README.md'
 
         version {
@@ -91,14 +91,14 @@ bintray {
 }
 
 pluginBundle {
-    website = 'https://github.com/sakthiveltk/gradle-postman-runner'
-    vcsUrl = 'https://github.com/sakthiveltk/gradle-postman-runner.git'
+    website = 'https://github.com/simomat/gradle-postman-runner'
+    vcsUrl = 'https://github.com/simomat/gradle-postman-runner.git'
     description = 'Gradle plugin to run postman'
     tags = ['postman', 'newman']
 
     plugins {
         postmanRunner {
-            id = 'com.samk.postman'
+            id = 'de.infonautika'
             displayName = 'Gradle plugin to run postman'
         }
     }
