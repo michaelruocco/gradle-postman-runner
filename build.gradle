@@ -13,8 +13,8 @@ plugins {
     id "com.jfrog.bintray" version "1.7"
 }
 
-group = 'de.infonautika.postman'
-version = '0.0.5'
+group = 'com.samk.postman'
+version = '0.0.7'
 
 allprojects {
     repositories {
@@ -28,13 +28,14 @@ allprojects {
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 
 dependencies {
     compile gradleApi()
-    compile 'com.moowork.gradle:gradle-node-plugin:0.13'
+    // compile 'com.moowork.gradle:gradle-node-plugin:0.13'
+    compile 'com.moowork.gradle:gradle-node-plugin:1.1.0'
     compile 'org.apache.commons:commons-io:1.3.2'
     compile 'com.google.code.gson:gson:2.8.0'
 }
@@ -53,7 +54,7 @@ publishing {
     publications {
         PostmanRunnerPublication(MavenPublication) {
             from components.java
-            groupId 'de.infonautika.postman'
+            groupId 'com.samk.postman'
             artifactId 'postman-runner'
             artifact sourcesJar
             version "${project.version}"
@@ -62,8 +63,8 @@ publishing {
 }
 
 bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
+    user = 'sakthiveltk'
+    key = 'com.samk.postman'
     publications = ['PostmanRunnerPublication']
 
     dryRun = false
@@ -73,31 +74,31 @@ bintray {
         repo = 'maven'
         name = 'postmanrunner'
         licenses = ['Apache-2.0']
-        websiteUrl = 'https://github.com/simomat/gradle-postman-runner'
-        issueTrackerUrl = 'https://github.com/simomat/gradle-postman-runner/issues'
-        vcsUrl = 'https://github.com/simomat/gradle-postman-runner.git'
+        websiteUrl = 'https://github.com/sakthiveltk/gradle-postman-runner'
+        issueTrackerUrl = 'https://github.com/sakthiveltk/gradle-postman-runner/issues'
+        vcsUrl = 'https://github.com/sakthiveltk/gradle-postman-runner.git'
         labels = ['postman', 'newman', 'gradle']
-        githubRepo = 'simomat/gradle-postman-runner'
+        githubRepo = 'sakthiveltk/gradle-postman-runner'
         githubReleaseNotesFile = 'README.md'
 
         version {
             name = "${project.version}"
             desc = 'Gradle plugin to run postman'
             released  = new Date()
-            vcsTag = '0.0.5'
+            vcsTag = '0.0.7'
         }
     }
 }
 
 pluginBundle {
-    website = 'https://github.com/simomat/gradle-postman-runner'
-    vcsUrl = 'https://github.com/simomat/gradle-postman-runner.git'
+    website = 'https://github.com/sakthiveltk/gradle-postman-runner'
+    vcsUrl = 'https://github.com/sakthiveltk/gradle-postman-runner.git'
     description = 'Gradle plugin to run postman'
     tags = ['postman', 'newman']
 
     plugins {
         postmanRunner {
-            id = 'de.infonautika.postman'
+            id = 'com.samk.postman'
             displayName = 'Gradle plugin to run postman'
         }
     }

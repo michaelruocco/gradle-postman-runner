@@ -1,8 +1,8 @@
 package de.infonautika.postman.task;
 
 import com.moowork.gradle.node.NodeExtension;
-import com.moowork.gradle.node.task.NpmSetupTask;
-import com.moowork.gradle.node.task.NpmTask;
+import com.moowork.gradle.node.npm.NpmSetupTask;
+import com.moowork.gradle.node.npm.NpmTask;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.OutputDirectory;
 

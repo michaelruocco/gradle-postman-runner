@@ -9,6 +9,7 @@ public class PreferredSettings implements NewmanSettings {
     private Supplier<NewmanSettings> defaultSettings;
     private FileTree collections;
     private File environment;
+    private File data;
     private Boolean cliReport;
     private String xmlReportDir;
     private String htmlReportDir;
@@ -109,6 +110,10 @@ public class PreferredSettings implements NewmanSettings {
     public void setEnvironment(File environment) {
         this.environment = environment;
     }
+    
+    public void setData(File data) {
+        this.data = data;
+    }
 
     public void setCliReport(boolean cliReport) {
         this.cliReport = cliReport;
@@ -145,4 +150,12 @@ public class PreferredSettings implements NewmanSettings {
     private NewmanSettings getNewmanSettings() {
         return defaultSettings.get();
     }
+
+	@Override
+	public File getData() {
+		if (data == null) {
+            return getNewmanSettings().getData();
+        }
+        return data;
+	}
 }

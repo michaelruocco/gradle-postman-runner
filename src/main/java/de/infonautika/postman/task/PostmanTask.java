@@ -54,6 +54,10 @@ public class PostmanTask extends DefaultTask {
     public void setEnvironment(File environment) {
         settings.setEnvironment(environment);
     }
+    
+    public void setData(File data) {
+    	settings.setData(data);
+    }
 
     public void setCliReport(boolean cliReport) {
         settings.setCliReport(cliReport);

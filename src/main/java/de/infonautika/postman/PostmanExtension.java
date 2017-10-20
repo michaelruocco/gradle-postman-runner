@@ -13,6 +13,7 @@ public class PostmanExtension implements NewmanSettings {
 
     private FileTree collections;
     private File environment;
+    private File data;
     private boolean cliReport = true;
     private String xmlReportDir;
     private String htmlReportDir;
@@ -118,4 +119,13 @@ public class PostmanExtension implements NewmanSettings {
         treeConfig.put("include", "**/*.postman_collection.json");
         this.collections = project.fileTree(treeConfig);
     }
+
+	@Override
+	public File getData() {
+		return data;
+	}
+	
+	public void setData(File data) {
+		this.data = data;
+	}
 }

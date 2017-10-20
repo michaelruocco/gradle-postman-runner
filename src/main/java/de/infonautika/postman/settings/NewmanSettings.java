@@ -8,6 +8,8 @@ public interface NewmanSettings {
     FileTree getCollections();
 
     File getEnvironment();
+    
+    File getData();
 
     boolean getCliReport();
 
