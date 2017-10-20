@@ -13,7 +13,7 @@ plugins {
     id "com.jfrog.bintray" version "1.7"
 }
 
-group = 'de.infonautika'
+group = 'de.infonautika.postman'
 version = '0.0.7'
 
 allprojects {
@@ -54,7 +54,7 @@ publishing {
     publications {
         PostmanRunnerPublication(MavenPublication) {
             from components.java
-            groupId 'de.infonautika'
+            groupId 'de.infonautika.postman'
             artifactId 'postman-runner'
             artifact sourcesJar
             version "${project.version}"
@@ -98,7 +98,7 @@ pluginBundle {
 
     plugins {
         postmanRunner {
-            id = 'de.infonautika'
+            id = 'de.infonautika.postman'
             displayName = 'Gradle plugin to run postman'
         }
     }
