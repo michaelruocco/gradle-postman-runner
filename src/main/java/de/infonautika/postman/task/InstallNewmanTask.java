@@ -30,7 +30,6 @@ public class InstallNewmanTask extends NpmTask {
 
     @Input
     public String getNewmanVersionString() {
-        // TODO: 29.11.16 make version configurable
         return "";
     }
 }

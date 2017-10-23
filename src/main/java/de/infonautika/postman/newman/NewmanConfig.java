@@ -40,6 +40,7 @@ class NewmanConfig {
         private void buildParameters() {
             addCollection();
             addEnvironment();
+            addData();
             addReporters();
             addBail();
             addNoColor();
@@ -132,6 +133,12 @@ class NewmanConfig {
             }
         }
 
+        private void addData() {
+            if (settings.getData() != null) {
+                params.add("iterationData", new JsonPrimitive(settings.getData().toString()));
+            }
+        }
+        
         private void addBail() {
             params.add("bail", primitive(settings.getStopOnError()));
         }
