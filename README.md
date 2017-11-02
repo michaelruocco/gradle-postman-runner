@@ -58,6 +58,10 @@ postman {
     // default: no environment
     environment = file('src/test/some_environment.postman_environment.json')
 
+    // specifies the data json to execute the collection with
+    // default: no data files
+    data = file('src/test/some_data_file.json')
+    
     // stops entire execution on first failing test in a collection
     // default: false
     stopOnError = true
