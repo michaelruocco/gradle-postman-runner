@@ -12,6 +12,7 @@ To test the plugin from local repo (If updated plugin source is not updated in g
 
 Copy the generated jar file postman-runner-0.0.7.jar and other dependent jar files in your project lib directory.
 
+```groovy
 buildscript {
     dependencies {
         classpath files('lib/postman-runner-0.0.7.jar')
@@ -22,7 +23,9 @@ buildscript {
 }
 
 apply plugin: 'de.infonautika.postman'
+```
 
+#### Use plugin from Plugins repository
 
 For gradle version < 2.1:
 
