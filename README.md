@@ -8,6 +8,22 @@ By default, all postman collection files (ending with `.postman_collection.json`
 
 #### Usage
 
+To test the plugin from local repo (If updated plugin source is not updated in gradle plugin repository)
+
+Copy the generated jar file postman-runner-0.0.7.jar and other dependent jar files in your project lib directory.
+
+buildscript {
+    dependencies {
+        classpath files('lib/postman-runner-0.0.7.jar')
+        classpath files('lib/gradle-node-plugin-1.1.0.jar')
+        classpath files('lib/gson-2.8.2.jar')
+        classpath files('lib/commons-io-1.3.2.jar')
+    }
+}
+
+apply plugin: 'de.infonautika.postman'
+
+
 For gradle version < 2.1:
 
 ```groovy
