@@ -14,6 +14,8 @@ public class PostmanExtension implements NewmanSettings {
     private FileTree collections;
     private File environment;
     private File data;
+    private File globals;
+    private String title;
     private boolean cliReport = true;
     private String xmlReportDir;
     private String htmlReportDir;
@@ -124,8 +126,26 @@ public class PostmanExtension implements NewmanSettings {
 	public File getData() {
 		return data;
 	}
-	
-	public void setData(File data) {
+
+    @Override
+    public File getGlobals() {
+        return globals;
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    public void setData(File data) {
 		this.data = data;
 	}
+
+	public void setGlobals(File globals) {
+        this.globals = globals;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

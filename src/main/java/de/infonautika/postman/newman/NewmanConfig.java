@@ -13,6 +13,7 @@ import static de.infonautika.postman.task.util.Json.*;
 class NewmanConfig {
     private Project project;
     private NewmanSettings settings;
+    private String title;
 
     NewmanConfig(Project project, NewmanSettings settings) {
         this.project = project;
@@ -27,6 +28,7 @@ class NewmanConfig {
 
         private JsonObject params = object();
         private File collection;
+        private String title;
 
         JsonBuilder(File collection) {
             this.collection = collection;
@@ -38,6 +40,7 @@ class NewmanConfig {
         }
 
         private void buildParameters() {
+            addTitle();
             addCollection();
             addEnvironment();
             addData();
@@ -45,6 +48,7 @@ class NewmanConfig {
             addBail();
             addNoColor();
             addDisableUnicode();
+            addGlobals();
         }
 
         private void addCollection() {
@@ -100,7 +104,8 @@ class NewmanConfig {
 
                 htmlOptions.addProperty(
                     "export",
-                    projectFile(settings.getHtmlReportDir(), "TEST-postman-" + collection.getName() + ".html"));
+                    projectFile(settings.getHtmlReportDir(), "TEST-postman-" + collection.getName() + "-"
+                            + settings.getTitle() + ".html"));
 
                 if (settings.getHtmlTemplate() != null) {
                     htmlOptions.addProperty(
@@ -157,6 +162,20 @@ class NewmanConfig {
             }
             return fileName + ".json";
         }
+
+        private void addGlobals() {
+            if (settings.getGlobals() != null) {
+                params.add("globals", new JsonPrimitive(settings.getGlobals().toString()));
+            }
+        }
+
+        private void addTitle() {
+            if(null != settings.getTitle()) {
+                this.title = settings.getTitle();
+
+            }
+        }
+
     }
 
 

@@ -59,6 +59,10 @@ public class PostmanTask extends DefaultTask {
     	settings.setData(data);
     }
 
+    public void setGlobals(File globals) {
+        settings.setGlobals(globals);
+    }
+
     public void setCliReport(boolean cliReport) {
         settings.setCliReport(cliReport);
     }

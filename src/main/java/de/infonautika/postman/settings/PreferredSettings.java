@@ -10,6 +10,7 @@ public class PreferredSettings implements NewmanSettings {
     private FileTree collections;
     private File environment;
     private File data;
+    private File globals;
     private Boolean cliReport;
     private String xmlReportDir;
     private String htmlReportDir;
@@ -18,6 +19,7 @@ public class PreferredSettings implements NewmanSettings {
     private Boolean stopOnError;
     private Boolean noColor;
     private Boolean disableUnicode;
+    private String title;
 
     public PreferredSettings(Supplier<NewmanSettings> defaultSettings) {
         this.defaultSettings = defaultSettings;
@@ -115,6 +117,10 @@ public class PreferredSettings implements NewmanSettings {
         this.data = data;
     }
 
+    public void setGlobals(File globals) {
+        this.globals = globals;
+    }
+
     public void setCliReport(boolean cliReport) {
         this.cliReport = cliReport;
     }
@@ -158,4 +164,20 @@ public class PreferredSettings implements NewmanSettings {
         }
         return data;
 	}
+
+    @Override
+    public File getGlobals() {
+        if(null == globals) {
+            globals = getNewmanSettings().getGlobals();
+        }
+        return globals;
+    }
+
+    @Override
+    public String getTitle() {
+        if(null == title) {
+            title = getNewmanSettings().getTitle();
+        }
+        return title;
+    }
 }

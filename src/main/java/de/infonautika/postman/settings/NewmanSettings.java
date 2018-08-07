@@ -11,6 +11,10 @@ public interface NewmanSettings {
     
     File getData();
 
+    File getGlobals();
+
+    String getTitle();
+
     boolean getCliReport();
 
     String getXmlReportDir();
