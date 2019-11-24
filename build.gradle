@@ -72,7 +72,7 @@ bintray {
             name = "${project.version}"
             desc = 'Gradle plugin to run postman'
             released  = new Date()
-            vcsTag = '0.0.5'
+            vcsTag = "${project.version}"
         }
     }
 }
