@@ -1,7 +1,7 @@
-package de.infonautika.postman.newman;
+package com.github.michaelruocco.newman;
 
 import com.moowork.gradle.node.exec.NodeExecRunner;
-import de.infonautika.postman.settings.PreferredSettings;
+import com.github.michaelruocco.settings.PreferredSettings;
 import org.gradle.api.Project;
 import org.gradle.process.internal.ExecException;
 

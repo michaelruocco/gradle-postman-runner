@@ -1,6 +1,6 @@
-package de.infonautika.postman.settings;
+package com.github.michaelruocco.settings;
 
-import de.infonautika.postman.task.util.Supplier;
+import com.github.michaelruocco.task.util.Supplier;
 import org.gradle.api.file.FileTree;
 
 import java.io.File;

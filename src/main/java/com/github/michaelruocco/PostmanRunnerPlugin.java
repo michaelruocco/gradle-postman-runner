@@ -1,8 +1,8 @@
-package de.infonautika.postman;
+package com.github.michaelruocco;
 
-import de.infonautika.postman.task.DeployNewmanWrapperTask;
-import de.infonautika.postman.task.InstallNewmanTask;
-import de.infonautika.postman.task.PostmanTask;
+import com.github.michaelruocco.task.DeployNewmanWrapperTask;
+import com.github.michaelruocco.task.InstallNewmanTask;
+import com.github.michaelruocco.task.PostmanTask;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 

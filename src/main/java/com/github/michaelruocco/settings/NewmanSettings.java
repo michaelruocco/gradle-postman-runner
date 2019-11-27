@@ -1,4 +1,4 @@
-package de.infonautika.postman.settings;
+package com.github.michaelruocco.settings;
 
 import org.gradle.api.file.FileTree;
 

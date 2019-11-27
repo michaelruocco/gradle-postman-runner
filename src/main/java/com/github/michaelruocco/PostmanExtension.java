@@ -1,6 +1,6 @@
-package de.infonautika.postman;
+package com.github.michaelruocco;
 
-import de.infonautika.postman.settings.NewmanSettings;
+import com.github.michaelruocco.settings.NewmanSettings;
 import org.gradle.api.Project;
 import org.gradle.api.file.FileTree;
 

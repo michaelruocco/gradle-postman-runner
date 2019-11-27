@@ -1,5 +1,6 @@
-package de.infonautika.postman.task;
+package com.github.michaelruocco.task;
 
+import com.github.michaelruocco.PostmanRunnerPlugin;
 import com.moowork.gradle.node.NodeExtension;
 import com.moowork.gradle.node.npm.NpmSetupTask;
 import com.moowork.gradle.node.npm.NpmTask;
@@ -8,14 +9,13 @@ import org.gradle.api.tasks.OutputDirectory;
 
 import java.io.File;
 
-import static de.infonautika.postman.PostmanRunnerPlugin.GROUP_NAME;
 import static java.util.Collections.singletonList;
 
 public class InstallNewmanTask extends NpmTask {
     public final static String NAME = "installNewman";
 
     public InstallNewmanTask() {
-        this.setGroup(GROUP_NAME);
+        this.setGroup(PostmanRunnerPlugin.GROUP_NAME);
         this.setDescription("Install newman packages");
         setNpmCommand("install");
         setArgs(singletonList("newman" + getNewmanVersionString()));

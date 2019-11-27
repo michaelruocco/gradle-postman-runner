@@ -1,4 +1,4 @@
-package de.infonautika.postman.task.util;
+package com.github.michaelruocco.task.util;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

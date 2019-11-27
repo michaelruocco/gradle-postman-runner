@@ -1,4 +1,4 @@
-package de.infonautika.postman.task.util;
+package com.github.michaelruocco.task.util;
 
 public interface Supplier<T> {
     T get();

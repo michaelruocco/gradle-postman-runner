@@ -1,6 +1,7 @@
-package de.infonautika.postman.task;
+package com.github.michaelruocco.task;
 
-import de.infonautika.postman.newman.NewmanWrapper;
+import com.github.michaelruocco.PostmanRunnerPlugin;
+import com.github.michaelruocco.newman.NewmanWrapper;
 import org.apache.commons.io.FileUtils;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.OutputFile;
@@ -10,14 +11,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import static de.infonautika.postman.newman.NewmanWrapper.getWrapperName;
-import static de.infonautika.postman.PostmanRunnerPlugin.GROUP_NAME;
-
 public class DeployNewmanWrapperTask extends DefaultTask {
     public final static String NAME = "deployWrapper";
 
     public DeployNewmanWrapperTask() {
-        setGroup(GROUP_NAME);
+        setGroup(PostmanRunnerPlugin.GROUP_NAME);
         setDescription("executes Postman collections");
     }
 
@@ -31,7 +29,7 @@ public class DeployNewmanWrapperTask extends DefaultTask {
     }
 
     private URL getInternalWrapperUrl() {
-        URL wrapperScriptResource = this.getClass().getResource(getWrapperName());
+        URL wrapperScriptResource = this.getClass().getResource(NewmanWrapper.getWrapperName());
         if (wrapperScriptResource == null) {
             throw new RuntimeException("could not get wrapper script resource");
         }

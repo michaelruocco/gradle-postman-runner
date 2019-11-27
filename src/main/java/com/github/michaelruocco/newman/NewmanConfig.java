@@ -1,14 +1,14 @@
-package de.infonautika.postman.newman;
+package com.github.michaelruocco.newman;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import de.infonautika.postman.settings.NewmanSettings;
+import com.github.michaelruocco.settings.NewmanSettings;
 import org.gradle.api.Project;
 
 import java.io.File;
 
-import static de.infonautika.postman.task.util.Json.*;
+import static com.github.michaelruocco.task.util.Json.*;
 
 class NewmanConfig {
     private Project project;

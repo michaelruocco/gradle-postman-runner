@@ -1,11 +1,12 @@
-package de.infonautika.postman.task;
+package com.github.michaelruocco.task;
 
+import com.github.michaelruocco.PostmanExtension;
+import com.github.michaelruocco.PostmanRunnerPlugin;
+import com.github.michaelruocco.newman.NewmanRunner;
+import com.github.michaelruocco.settings.NewmanSettings;
+import com.github.michaelruocco.settings.PreferredSettings;
+import com.github.michaelruocco.task.util.Supplier;
 import com.moowork.gradle.node.task.SetupTask;
-import de.infonautika.postman.PostmanExtension;
-import de.infonautika.postman.newman.NewmanRunner;
-import de.infonautika.postman.settings.NewmanSettings;
-import de.infonautika.postman.settings.PreferredSettings;
-import de.infonautika.postman.task.util.Supplier;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.GradleException;
 import org.gradle.api.file.FileTree;
@@ -13,7 +14,6 @@ import org.gradle.api.tasks.TaskAction;
 
 import java.io.File;
 
-import static de.infonautika.postman.PostmanRunnerPlugin.GROUP_NAME;
 import static java.util.Arrays.asList;
 
 public class PostmanTask extends DefaultTask {
@@ -22,7 +22,7 @@ public class PostmanTask extends DefaultTask {
     private PreferredSettings settings;
 
     public PostmanTask() {
-        setGroup(GROUP_NAME);
+        setGroup(PostmanRunnerPlugin.GROUP_NAME);
         setDescription("executes Postman collections");
         dependsOn(asList(SetupTask.NAME, InstallNewmanTask.NAME, DeployNewmanWrapperTask.NAME));
 
