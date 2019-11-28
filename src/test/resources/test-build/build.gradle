@@ -1,0 +1,9 @@
+plugins {
+    id 'com.moowork.node' version '0.14'
+    id 'gradle-postman-runner'
+}
+
+postman {
+    collections = fileTree(dir: './postman', include: '*postman_collection.json')
+    environment = file('./postman/local.postman_environment.json')
+}

@@ -5,7 +5,8 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.27.0'
 }
 
-apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'java-gradle-plugin'
 apply plugin: 'maven-publish'
 apply plugin: 'com.gradle.plugin-publish'
 
@@ -33,6 +34,10 @@ dependencies {
     compile 'com.moowork.gradle:gradle-node-plugin:1.3.1'
     compile 'org.apache.commons:commons-io:1.3.2'
     compile 'com.google.code.gson:gson:2.8.6'
+
+    testCompile('org.spockframework:spock-core:1.1-groovy-2.4') {
+        exclude group: 'org.codehaus.groovy'
+    }
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
