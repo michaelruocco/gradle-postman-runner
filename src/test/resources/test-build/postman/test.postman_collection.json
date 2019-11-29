@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "537a74f9-3eb9-42e1-82bf-2d3a4daa921e",
+		"name": "gradle-postman-runner-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22da4bab-ef89-432f-90bd-913f3f5768cc",
+						"exec": [
+							"var responseBody = pm.response.json();",
+							"",
+							"pm.test(\"should return ok status\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"should return expected field1\", function () {",
+							"    pm.expect(responseBody.field1).to.equal(\"ONE\");",
+							"});",
+							"",
+							"pm.test(\"should return expected field2\", function () {",
+							"    pm.expect(responseBody.field2).to.equal(2);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/gradle-postman-runner-test",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"gradle-postman-runner-test"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
