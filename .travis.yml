@@ -32,3 +32,4 @@ jobs:
           git checkout $TRAVIS_BRANCH;
           ./gradlew release -Prelease.customUsername=$GITHUB_TOKEN;
           ./gradlew bintrayUpload -Dbuild.number=$TRAVIS_BUILD_NUMBER
+          ./gradlew publishPlugins
