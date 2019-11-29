@@ -1,6 +1,6 @@
-package com.github.michaelruocco.settings;
+package uk.co.mruoc.postman.settings;
 
-import com.github.michaelruocco.task.util.Supplier;
+import uk.co.mruoc.postman.task.util.Supplier;
 import org.gradle.api.file.FileTree;
 
 import java.io.File;

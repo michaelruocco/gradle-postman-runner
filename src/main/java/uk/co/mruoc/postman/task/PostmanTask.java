@@ -1,11 +1,11 @@
-package com.github.michaelruocco.task;
+package uk.co.mruoc.postman.task;
 
-import com.github.michaelruocco.PostmanExtension;
-import com.github.michaelruocco.PostmanRunnerPlugin;
-import com.github.michaelruocco.newman.NewmanRunner;
-import com.github.michaelruocco.settings.NewmanSettings;
-import com.github.michaelruocco.settings.PreferredSettings;
-import com.github.michaelruocco.task.util.Supplier;
+import uk.co.mruoc.postman.PostmanExtension;
+import uk.co.mruoc.postman.PostmanRunnerPlugin;
+import uk.co.mruoc.postman.newman.NewmanRunner;
+import uk.co.mruoc.postman.settings.NewmanSettings;
+import uk.co.mruoc.postman.settings.PreferredSettings;
+import uk.co.mruoc.postman.task.util.Supplier;
 import com.moowork.gradle.node.task.SetupTask;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.GradleException;

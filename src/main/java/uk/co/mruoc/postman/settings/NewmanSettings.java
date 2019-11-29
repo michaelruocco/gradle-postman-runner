@@ -1,4 +1,4 @@
-package com.github.michaelruocco.settings;
+package uk.co.mruoc.postman.settings;
 
 import org.gradle.api.file.FileTree;
 

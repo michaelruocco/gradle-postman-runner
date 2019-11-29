@@ -1,6 +1,6 @@
-package com.github.michaelruocco.task;
+package uk.co.mruoc.postman.task;
 
-import com.github.michaelruocco.PostmanRunnerPlugin;
+import uk.co.mruoc.postman.PostmanRunnerPlugin;
 import com.moowork.gradle.node.NodeExtension;
 import com.moowork.gradle.node.npm.NpmSetupTask;
 import com.moowork.gradle.node.npm.NpmTask;

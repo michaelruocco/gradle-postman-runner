@@ -1,4 +1,4 @@
-package com.github.michaelruocco.newman;
+package uk.co.mruoc.postman.newman;
 
 import org.gradle.api.Project;
 

@@ -1,4 +1,4 @@
-package com.github.michaelruocco.task.util;
+package uk.co.mruoc.postman.task.util;
 
 public interface Supplier<T> {
     T get();

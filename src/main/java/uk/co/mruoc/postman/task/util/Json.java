@@ -1,4 +1,4 @@
-package com.github.michaelruocco.task.util;
+package uk.co.mruoc.postman.task.util;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

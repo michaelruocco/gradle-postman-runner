@@ -1,14 +1,14 @@
-package com.github.michaelruocco.newman;
+package uk.co.mruoc.postman.newman;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.github.michaelruocco.settings.NewmanSettings;
+import uk.co.mruoc.postman.settings.NewmanSettings;
 import org.gradle.api.Project;
 
 import java.io.File;
 
-import static com.github.michaelruocco.task.util.Json.*;
+import static uk.co.mruoc.postman.task.util.Json.*;
 
 class NewmanConfig {
     private Project project;

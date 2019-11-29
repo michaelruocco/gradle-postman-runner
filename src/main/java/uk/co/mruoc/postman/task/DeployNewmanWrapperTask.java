@@ -1,7 +1,7 @@
-package com.github.michaelruocco.task;
+package uk.co.mruoc.postman.task;
 
-import com.github.michaelruocco.PostmanRunnerPlugin;
-import com.github.michaelruocco.newman.NewmanWrapper;
+import uk.co.mruoc.postman.PostmanRunnerPlugin;
+import uk.co.mruoc.postman.newman.NewmanWrapper;
 import org.apache.commons.io.FileUtils;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.OutputFile;

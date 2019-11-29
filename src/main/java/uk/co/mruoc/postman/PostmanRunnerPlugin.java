@@ -1,8 +1,8 @@
-package com.github.michaelruocco;
+package uk.co.mruoc.postman;
 
-import com.github.michaelruocco.task.DeployNewmanWrapperTask;
-import com.github.michaelruocco.task.InstallNewmanTask;
-import com.github.michaelruocco.task.PostmanTask;
+import uk.co.mruoc.postman.task.DeployNewmanWrapperTask;
+import uk.co.mruoc.postman.task.InstallNewmanTask;
+import uk.co.mruoc.postman.task.PostmanTask;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 

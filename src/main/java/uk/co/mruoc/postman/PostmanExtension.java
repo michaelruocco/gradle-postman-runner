@@ -1,6 +1,6 @@
-package com.github.michaelruocco;
+package uk.co.mruoc.postman;
 
-import com.github.michaelruocco.settings.NewmanSettings;
+import uk.co.mruoc.postman.settings.NewmanSettings;
 import org.gradle.api.Project;
 import org.gradle.api.file.FileTree;
 

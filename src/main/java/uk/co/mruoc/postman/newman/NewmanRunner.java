@@ -1,7 +1,7 @@
-package com.github.michaelruocco.newman;
+package uk.co.mruoc.postman.newman;
 
 import com.moowork.gradle.node.exec.NodeExecRunner;
-import com.github.michaelruocco.settings.PreferredSettings;
+import uk.co.mruoc.postman.settings.PreferredSettings;
 import org.gradle.api.Project;
 import org.gradle.process.internal.ExecException;
 

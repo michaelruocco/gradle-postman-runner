@@ -1,4 +1,4 @@
-package com.github.michaelruocco
+package uk.co.mruoc.postman
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import org.junit.Rule

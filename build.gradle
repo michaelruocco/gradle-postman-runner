@@ -137,7 +137,7 @@ pluginBundle {
 
     plugins {
         gradlePostmanRunner {
-            id = 'gradle-postman-runner'
+            id = 'com.github.michaelruocco.gradle-postman-runner'
             displayName = 'Gradle plugin to run postman'
         }
     }
