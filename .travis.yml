@@ -19,7 +19,7 @@ stages:
   - name: build
 
   - name: release
-    if: branch = master
+    if: branch = master AND NOT (type = pull_request)
 
 jobs:
   include:
