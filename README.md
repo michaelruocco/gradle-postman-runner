@@ -69,7 +69,11 @@ postman {
     // when windows gives you lemons on cli output...
     // default: false
     disableUnicode = false
-    
+
+    // disables ssl verification checks and allows self-signed certificates
+    // default: off
+    insecure = true
+
     // creates junit compatible XML result files in directory
     // default: off
     xmlReportDir = 'build/testoutput'

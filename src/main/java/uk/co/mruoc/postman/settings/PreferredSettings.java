@@ -17,6 +17,7 @@ public class PreferredSettings implements NewmanSettings {
     private Boolean stopOnError;
     private Boolean noColor;
     private Boolean disableUnicode;
+    private Boolean insecure;
 
     public PreferredSettings(Supplier<NewmanSettings> defaultSettings) {
         this.defaultSettings = defaultSettings;
@@ -102,6 +103,14 @@ public class PreferredSettings implements NewmanSettings {
         return disableUnicode;
     }
 
+    @Override
+    public boolean getInsecure() {
+        if (insecure == null) {
+            return getNewmanSettings().getInsecure();
+        }
+        return insecure;
+    }
+
     public void setCollections(FileTree collections) {
         this.collections = collections;
     }
@@ -140,6 +149,10 @@ public class PreferredSettings implements NewmanSettings {
 
     public void setJsonReportDir(String jsonReportDir) {
         this.jsonReportDir = jsonReportDir;
+    }
+
+    public void setInsecure(boolean insecure) {
+        this.insecure = insecure;
     }
 
     private NewmanSettings getNewmanSettings() {

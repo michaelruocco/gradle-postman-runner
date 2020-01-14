@@ -75,6 +75,10 @@ public class PostmanTask extends DefaultTask {
         settings.setDisableUnicode(disableUnicode);
     }
 
+    public void setInsecure(boolean insecure) {
+        settings.setInsecure(insecure);
+    }
+
     public void setHtmlReportDir(String htmlReportDir) {
         settings.setHtmlReportDir(htmlReportDir);
     }
