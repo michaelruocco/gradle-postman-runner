@@ -44,6 +44,7 @@ class NewmanConfig {
             addBail();
             addNoColor();
             addDisableUnicode();
+            addSecure();
         }
 
         private void addCollection() {
@@ -142,6 +143,10 @@ class NewmanConfig {
 
         private void addDisableUnicode() {
             params.add("disableUnicode", primitive(settings.getDisableUnicode()));
+        }
+
+        private void addSecure() {
+            params.add("insecure", primitive(!settings.isSecure()));
         }
 
         private String endsWithJson(String fileName) {

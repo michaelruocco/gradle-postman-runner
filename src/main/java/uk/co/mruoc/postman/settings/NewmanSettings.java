@@ -24,4 +24,7 @@ public interface NewmanSettings {
     boolean getNoColor();
 
     boolean getDisableUnicode();
+
+    boolean isSecure();
+
 }
