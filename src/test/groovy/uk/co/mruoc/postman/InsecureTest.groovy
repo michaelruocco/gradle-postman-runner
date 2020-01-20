@@ -2,25 +2,22 @@ package uk.co.mruoc.postman
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import org.apache.commons.io.FileUtils
+import org.gradle.testkit.runner.GradleRunner
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
-import org.gradle.testkit.runner.GradleRunner
 
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor
-import static com.github.tomakehurst.wiremock.client.WireMock.get
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
+import static com.github.tomakehurst.wiremock.client.WireMock.*
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
 
-class PluginTest extends Specification {
+class InsecureTest extends Specification {
 
     @Rule
     private TemporaryFolder testProjectDir = new TemporaryFolder()
 
     @Rule
-    private WireMockRule wireMockRule = new WireMockRule(8081)
+    private WireMockRule wireMockRule = new WireMockRule(wireMockConfig().httpsPort(8443))
 
     private def buildFile
 
@@ -36,12 +33,13 @@ class PluginTest extends Specification {
         FileUtils.copyDirectory(new File("src/test/resources"), testProjectDir.root)
     }
 
-    def "can execute postman collection with environment file"() {
+    def "can execute postman collection with https"() {
         given:
         buildFile << """
             postman {
                 collections = fileTree(dir: '.', include: '*postman_collection.json')
-                environment = file('./local.postman_environment.json')
+                environment = file('./https.postman_environment.json')
+                secure = false
             }
         """
 

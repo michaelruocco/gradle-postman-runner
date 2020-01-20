@@ -21,6 +21,7 @@ public class PostmanExtension implements NewmanSettings {
     private boolean stopOnError = false;
     private boolean noColor = true;
     private boolean disableUnicode = false;
+    private boolean secure = true;
 
     @Override
     public FileTree getCollections() {
@@ -92,12 +93,21 @@ public class PostmanExtension implements NewmanSettings {
         return disableUnicode;
     }
 
+    @Override
+    public boolean isSecure() {
+        return secure;
+    }
+
     public void setNoColor(boolean noColor) {
         this.noColor = noColor;
     }
 
     public void setDisableUnicode(boolean disableUnicode) {
         this.disableUnicode = disableUnicode;
+    }
+
+    public void setSecure(boolean secure) {
+        this.secure = secure;
     }
 
     public void setHtmlReportDir(String htmlReportDir) {

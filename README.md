@@ -70,6 +70,10 @@ postman {
     // default: false
     disableUnicode = false
     
+    // enables/disables ssl verification checks and allows self-signed certificates
+    // default: true
+    secure = false
+
     // creates junit compatible XML result files in directory
     // default: off
     xmlReportDir = 'build/testoutput'
