@@ -94,7 +94,7 @@ public class PostmanExtension implements NewmanSettings {
     }
 
     @Override
-    public boolean isSecure() {
+    public boolean getSecure() {
         return secure;
     }
 
