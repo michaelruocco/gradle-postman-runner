@@ -1,18 +1,18 @@
 package uk.co.mruoc.postman
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo
+import static com.github.tomakehurst.wiremock.client.WireMock.get
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
+import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
+
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import org.apache.commons.io.FileUtils
+import org.gradle.testkit.runner.GradleRunner
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
-import org.gradle.testkit.runner.GradleRunner
-
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor
-import static com.github.tomakehurst.wiremock.client.WireMock.get
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
-import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
 
 class PluginTest extends Specification {
 

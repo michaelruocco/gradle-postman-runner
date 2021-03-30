@@ -1,15 +1,15 @@
 package uk.co.mruoc.postman
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
+import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
+
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import org.apache.commons.io.FileUtils
 import org.gradle.testkit.runner.GradleRunner
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
-
-import static com.github.tomakehurst.wiremock.client.WireMock.*
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
-import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
 
 class InsecureTest extends Specification {
 
