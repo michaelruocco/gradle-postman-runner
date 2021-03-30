@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PostmanExtension implements NewmanSettings {
-    public final static String NAME = "postman";
+    public static final String NAME = "postman";
 
     private FileTree collections;
     private File environment;
@@ -94,7 +94,7 @@ public class PostmanExtension implements NewmanSettings {
     }
 
     @Override
-    public boolean isSecure() {
+    public boolean getSecure() {
         return secure;
     }
 

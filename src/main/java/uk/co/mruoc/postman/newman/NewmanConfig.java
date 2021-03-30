@@ -146,7 +146,7 @@ class NewmanConfig {
         }
 
         private void addSecure() {
-            params.add("insecure", primitive(!settings.isSecure()));
+            params.add("insecure", primitive(!settings.getSecure()));
         }
 
         private String endsWithJson(String fileName) {

@@ -104,9 +104,9 @@ public class PreferredSettings implements NewmanSettings {
     }
 
     @Override
-    public boolean isSecure() {
+    public boolean getSecure() {
         if (secure == null) {
-            return getNewmanSettings().isSecure();
+            return getNewmanSettings().getSecure();
         }
         return secure;
     }

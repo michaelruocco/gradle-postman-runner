@@ -25,6 +25,6 @@ public interface NewmanSettings {
 
     boolean getDisableUnicode();
 
-    boolean isSecure();
+    boolean getSecure();
 
 }
