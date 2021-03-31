@@ -8,28 +8,9 @@ By default, all postman collection files (ending with `.postman_collection.json`
 
 #### Usage
 
-For gradle version < 2.1:
-
-```groovy
-buildscript {
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-  }
-  dependencies {
-    classpath "gradle.plugin.de.infonautika.postman:postman-runner:0.0.5"
-  }
-}
-
-apply plugin: "de.infonautika.postman"
-```
-
-For newer gradle versions:
-
 ```groovy
 plugins {
-  id "de.infonautika.postman" version "0.0.5"
+    id "com.github.michaelruocco.gradle-postman-runner"
 }
 ```
 
@@ -42,7 +23,7 @@ node {
 ```
 
 That's all needed to execute the postman task:
-`gradle postman`
+`./gradlew postman`
 
 An optional configuration of postman itself is done with the `postman` extension:
 
@@ -57,7 +38,21 @@ postman {
     // specifies the test environment to execute the collections with
     // default: no environment
     environment = file('src/test/some_environment.postman_environment.json')
+    
+    // specifies any environment variables to execute the collections with
+    // will override any values from the environment file above
+    // default: no environment variables
+    envVars = [ "myVar" : "myVarValue" ]
+    
+    // specifies the a global variable file to execute the collections with
+    // default: no globals
+    globals = file('./postman_globals.json')
 
+    // specifies any global variables to execute the collections with
+    // will override any values from the globals file above
+    // default: no global variables
+    globalsVars = [ "myVar" : "myVarValue" ]
+    
     // stops entire execution on first failing test in a collection
     // default: false
     stopOnError = true
@@ -93,7 +88,6 @@ postman {
 
 ```
 
-
 Besides a global configuration with the 'postman' extension as seen above, it's also possible to create a custom task and override all of the global configuration values (if any given):
 
 ```groovy
@@ -101,5 +95,18 @@ task postmanOnDifferentEnvifonment(type: de.infonautika.postman.task.PostmanTask
     environment = file('different_environment.postman_environment.json')
     stopOnError = false
 }
+```
+
+## Useful Commands
+
+```gradle
+// cleans build directories
+// prints currentVersion
+// formats code
+// builds code
+// runs tests
+// checks for gradle issues
+// checks dependency versions
+./gradlew clean currentVersion dependencyUpdates lintGradle spotlessApply build
 ```
 

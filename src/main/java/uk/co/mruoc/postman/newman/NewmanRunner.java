@@ -11,7 +11,7 @@ import static java.util.Arrays.asList;
 
 public class NewmanRunner {
     private final NodeExecRunner nodeExecRunner;
-    private Project project;
+    private final Project project;
     private final PreferredSettings settings;
 
     public NewmanRunner(Project project, PreferredSettings settings) {
@@ -50,6 +50,7 @@ public class NewmanRunner {
         nodeExecRunner.setArguments(asList(
                 getWrapperAbsolutePath().toString(),
                 getNewmanConfiguration(collection)));
+
         try {
             return nodeExecRunner.execute().getExitValue() == 0;
         } catch (ExecException ignored) {
@@ -63,6 +64,6 @@ public class NewmanRunner {
 
     private String getNewmanConfiguration(File collection) {
         NewmanConfig newmanConfig = new NewmanConfig(project, settings);
-        return newmanConfig.toJsonFor(collection).replaceAll("\"", "<>");
+        return newmanConfig.toJsonFor(collection).replace("\"", "<>");
     }
 }

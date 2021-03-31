@@ -4,11 +4,14 @@ import uk.co.mruoc.postman.task.util.Supplier;
 import org.gradle.api.file.FileTree;
 
 import java.io.File;
+import java.util.Map;
 
 public class PreferredSettings implements NewmanSettings {
-    private Supplier<NewmanSettings> defaultSettings;
+
+    private final Supplier<NewmanSettings> defaultSettings;
     private FileTree collections;
     private File environment;
+    private File globals;
     private Boolean cliReport;
     private String xmlReportDir;
     private String htmlReportDir;
@@ -18,6 +21,9 @@ public class PreferredSettings implements NewmanSettings {
     private Boolean noColor;
     private Boolean disableUnicode;
     private Boolean secure;
+    private Boolean ignoreRedirects;
+    private Map<String, String> envVars;
+    private Map<String, String> globalVars;
 
     public PreferredSettings(Supplier<NewmanSettings> defaultSettings) {
         this.defaultSettings = defaultSettings;
@@ -37,6 +43,14 @@ public class PreferredSettings implements NewmanSettings {
             return getNewmanSettings().getEnvironment();
         }
         return environment;
+    }
+
+    @Override
+    public File getGlobals() {
+        if (globals == null) {
+            return getNewmanSettings().getGlobals();
+        }
+        return globals;
     }
 
     @Override
@@ -104,11 +118,35 @@ public class PreferredSettings implements NewmanSettings {
     }
 
     @Override
-    public boolean isSecure() {
+    public boolean getSecure() {
         if (secure == null) {
-            return getNewmanSettings().isSecure();
+            return getNewmanSettings().getSecure();
         }
         return secure;
+    }
+
+    @Override
+    public boolean getIgnoreRedirects() {
+        if (ignoreRedirects == null) {
+            return getNewmanSettings().getIgnoreRedirects();
+        }
+        return ignoreRedirects;
+    }
+
+    @Override
+    public Map<String, String> getEnvVars() {
+        if (envVars == null) {
+            return getNewmanSettings().getEnvVars();
+        }
+        return envVars;
+    }
+
+    @Override
+    public Map<String, String> getGlobalVars() {
+        if (globalVars == null) {
+            return getNewmanSettings().getGlobalVars();
+        }
+        return globalVars;
     }
 
     public void setCollections(FileTree collections) {
@@ -117,6 +155,10 @@ public class PreferredSettings implements NewmanSettings {
 
     public void setEnvironment(File environment) {
         this.environment = environment;
+    }
+
+    public void setGlobals(File globals) {
+        this.globals = globals;
     }
 
     public void setCliReport(boolean cliReport) {
@@ -143,6 +185,10 @@ public class PreferredSettings implements NewmanSettings {
         this.secure = secure;
     }
 
+    public void setIgnoreRedirects(boolean ignoreRedirects) {
+        this.ignoreRedirects = ignoreRedirects;
+    }
+
     public void setHtmlReportDir(String htmlReportDir) {
         this.htmlReportDir = htmlReportDir;
     }
@@ -153,6 +199,14 @@ public class PreferredSettings implements NewmanSettings {
 
     public void setJsonReportDir(String jsonReportDir) {
         this.jsonReportDir = jsonReportDir;
+    }
+
+    public void setEnvVars(Map<String, String> envVars) {
+        this.envVars = envVars;
+    }
+
+    public void setGlobalVars(Map<String, String> globalVars) {
+        this.globalVars = globalVars;
     }
 
     private NewmanSettings getNewmanSettings() {

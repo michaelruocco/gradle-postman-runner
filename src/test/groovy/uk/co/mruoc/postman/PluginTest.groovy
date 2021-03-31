@@ -1,31 +1,36 @@
 package uk.co.mruoc.postman
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo
+import static com.github.tomakehurst.wiremock.client.WireMock.get
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
+import static org.assertj.core.api.Assertions.assertThat
+import static org.assertj.core.api.Assertions.catchThrowable
+import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
+
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import org.apache.commons.io.FileUtils
-import org.junit.Rule
-import org.junit.rules.TemporaryFolder
-import spock.lang.Specification
 import org.gradle.testkit.runner.GradleRunner
-
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor
-import static com.github.tomakehurst.wiremock.client.WireMock.get
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
-import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
+import org.gradle.testkit.runner.UnexpectedBuildFailure
+import org.junit.Rule
+import spock.lang.Specification
 
 class PluginTest extends Specification {
 
     @Rule
-    private TemporaryFolder testProjectDir = new TemporaryFolder()
+    private WireMockRule wireMockRule = new WireMockRule(wireMockConfig().port(8081).httpsPort(8443))
 
-    @Rule
-    private WireMockRule wireMockRule = new WireMockRule(8081)
-
+    private def testProjectDir
     private def buildFile
 
     def setup() {
-        buildFile = testProjectDir.newFile('build.gradle')
+        testProjectDir = File.createTempDir()
+        testProjectDir.deleteOnExit()
+
+        buildFile = new File(testProjectDir.getPath() + "/build.gradle")
+        buildFile.createNewFile()
         buildFile << """
             plugins {
                 id 'com.moowork.node' version '1.3.1'
@@ -33,7 +38,7 @@ class PluginTest extends Specification {
             }
         """
 
-        FileUtils.copyDirectory(new File("src/test/resources"), testProjectDir.root)
+        FileUtils.copyDirectory(new File("src/test/resources"), testProjectDir)
     }
 
     def "can execute postman collection with environment file"() {
@@ -54,7 +59,7 @@ class PluginTest extends Specification {
 
         when:
         def result = GradleRunner.create()
-                .withProjectDir(testProjectDir.root)
+                .withProjectDir(testProjectDir)
                 .withArguments('postman')
                 .withPluginClasspath()
                 .build()
@@ -62,6 +67,188 @@ class PluginTest extends Specification {
         then:
         println result.output
         result.task(":postman").outcome == SUCCESS
+    }
+
+    def "can execute postman collection with globals file"() {
+        given:
+        buildFile << """
+            postman {
+                collections = fileTree(dir: '.', include: '*postman_collection.json')
+                globals = file('./postman_globals.json')
+            }
+        """
+
+        stubFor(get(urlEqualTo("/gradle-postman-runner-test"))
+                .withHeader("Accept", equalTo("application/json"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("{\"field1\":\"ONE\",\"field2\":2}")))
+
+        when:
+        def result = GradleRunner.create()
+                .withProjectDir(testProjectDir)
+                .withArguments('postman')
+                .withPluginClasspath()
+                .build()
+
+        then:
+        println result.output
+        result.task(":postman").outcome == SUCCESS
+    }
+
+    def "can execute postman collection with https"() {
+        given:
+        buildFile << """
+            postman {
+                collections = fileTree(dir: '.', include: '*postman_collection.json')
+                environment = file('./https.postman_environment.json')
+                secure = false
+            }
+        """
+
+        stubFor(get(urlEqualTo("/gradle-postman-runner-test"))
+                .withHeader("Accept", equalTo("application/json"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("{\"field1\":\"ONE\",\"field2\":2}")))
+
+        when:
+        def result = GradleRunner.create()
+                .withProjectDir(testProjectDir)
+                .withArguments('postman')
+                .withPluginClasspath()
+                .build()
+
+        then:
+        println result.output
+        result.task(":postman").outcome == SUCCESS
+    }
+
+    def "can execute postman collection with env vars"() {
+        given:
+        buildFile << """
+            postman {
+                collections = fileTree(dir: '.', include: '*postman_collection.json')
+                envVars = [ "host" : "http://localhost:8081" ]
+            }
+        """
+
+        stubFor(get(urlEqualTo("/gradle-postman-runner-test"))
+                .withHeader("Accept", equalTo("application/json"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("{\"field1\":\"ONE\",\"field2\":2}")))
+
+        when:
+        def result = GradleRunner.create()
+                .withProjectDir(testProjectDir)
+                .withArguments('postman')
+                .withPluginClasspath()
+                .build()
+
+        then:
+        println result.output
+        result.task(":postman").outcome == SUCCESS
+    }
+
+    def "can execute postman collection with global vars"() {
+        given:
+        buildFile << """
+            postman {
+                collections = fileTree(dir: '.', include: '*postman_collection.json')
+                globalVars = [ "host" : "http://localhost:8081" ]
+            }
+        """
+
+        stubFor(get(urlEqualTo("/gradle-postman-runner-test"))
+                .withHeader("Accept", equalTo("application/json"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("{\"field1\":\"ONE\",\"field2\":2}")))
+
+        when:
+        def result = GradleRunner.create()
+                .withProjectDir(testProjectDir)
+                .withArguments('postman')
+                .withPluginClasspath()
+                .build()
+
+        then:
+        println result.output
+        result.task(":postman").outcome == SUCCESS
+    }
+
+    def "can execute postman collection with ignore redirects disabled"() {
+        given:
+        buildFile << """
+            postman {
+                collections = fileTree(dir: '.', include: '*postman_collection.json')
+                environment = file('./local.postman_environment.json')
+                ignoreRedirects = false
+            }
+        """
+
+        stubFor(get(urlEqualTo("/gradle-postman-runner-test"))
+                .withHeader("Accept", equalTo("application/json"))
+                .willReturn(aResponse()
+                        .withStatus(301)
+                        .withHeader("Location", "http://localhost:8081/redirect-test")))
+        stubFor(get(urlEqualTo("/redirect-test"))
+                .withHeader("Accept", equalTo("application/json"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("{\"field1\":\"ONE\",\"field2\":2}")))
+
+        when:
+        def result = GradleRunner.create()
+                .withProjectDir(testProjectDir)
+                .withArguments('postman')
+                .withPluginClasspath()
+                .build()
+
+        then:
+        println result.output
+        result.task(":postman").outcome == SUCCESS
+    }
+
+    def "can execute postman collection with ignore redirects enabled and fail if redirects required"() {
+        given:
+        buildFile << """
+            postman {
+                collections = fileTree(dir: '.', include: '*postman_collection.json')
+                environment = file('./local.postman_environment.json')
+                ignoreRedirects = true
+            }
+        """
+
+        stubFor(get(urlEqualTo("/gradle-postman-runner-test"))
+                .withHeader("Accept", equalTo("application/json"))
+                .willReturn(aResponse()
+                        .withStatus(301)
+                        .withHeader("Location", "http://localhost:8081/redirect-test")))
+        stubFor(get(urlEqualTo("/redirect-test"))
+                .withHeader("Accept", equalTo("application/json"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("{\"field1\":\"ONE\",\"field2\":2}")))
+
+        when:
+        def error = catchThrowable({
+            GradleRunner.create()
+                    .withProjectDir(testProjectDir)
+                    .withArguments('postman')
+                    .withPluginClasspath()
+                    .build()
+        })
+
+        then:
+        assertThat(error).isInstanceOf(UnexpectedBuildFailure.class)
     }
 
 }
