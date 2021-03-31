@@ -8,28 +8,9 @@ By default, all postman collection files (ending with `.postman_collection.json`
 
 #### Usage
 
-For gradle version < 2.1:
-
-```groovy
-buildscript {
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-  }
-  dependencies {
-    classpath "gradle.plugin.de.infonautika.postman:postman-runner:0.0.5"
-  }
-}
-
-apply plugin: "de.infonautika.postman"
-```
-
-For newer gradle versions:
-
 ```groovy
 plugins {
-  id "de.infonautika.postman" version "0.0.5"
+    id "com.github.michaelruocco.gradle-postman-runner"
 }
 ```
 
@@ -42,7 +23,7 @@ node {
 ```
 
 That's all needed to execute the postman task:
-`gradle postman`
+`./gradlew postman`
 
 An optional configuration of postman itself is done with the `postman` extension:
 
@@ -106,7 +87,6 @@ postman {
 }
 
 ```
-
 
 Besides a global configuration with the 'postman' extension as seen above, it's also possible to create a custom task and override all of the global configuration values (if any given):
 

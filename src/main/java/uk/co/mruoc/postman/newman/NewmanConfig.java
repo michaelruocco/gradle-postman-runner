@@ -51,6 +51,7 @@ class NewmanConfig {
             addNoColor();
             addDisableUnicode();
             addSecure();
+            addIgnoreRedirects();
             addEnvVars();
             addGlobalVars();
         }
@@ -191,6 +192,10 @@ class NewmanConfig {
 
         private void addSecure() {
             params.add("insecure", primitive(!settings.getSecure()));
+        }
+
+        private void addIgnoreRedirects() {
+            params.add("ignoreRedirects", primitive(settings.getIgnoreRedirects()));
         }
 
         private String endsWithJson(String fileName) {

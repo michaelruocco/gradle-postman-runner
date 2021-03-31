@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.Map;
 
 public class PreferredSettings implements NewmanSettings {
+
     private final Supplier<NewmanSettings> defaultSettings;
     private FileTree collections;
     private File environment;
@@ -20,6 +21,7 @@ public class PreferredSettings implements NewmanSettings {
     private Boolean noColor;
     private Boolean disableUnicode;
     private Boolean secure;
+    private Boolean ignoreRedirects;
     private Map<String, String> envVars;
     private Map<String, String> globalVars;
 
@@ -124,6 +126,14 @@ public class PreferredSettings implements NewmanSettings {
     }
 
     @Override
+    public boolean getIgnoreRedirects() {
+        if (ignoreRedirects == null) {
+            return getNewmanSettings().getIgnoreRedirects();
+        }
+        return ignoreRedirects;
+    }
+
+    @Override
     public Map<String, String> getEnvVars() {
         if (envVars == null) {
             return getNewmanSettings().getEnvVars();
@@ -173,6 +183,10 @@ public class PreferredSettings implements NewmanSettings {
 
     public void setSecure(boolean secure) {
         this.secure = secure;
+    }
+
+    public void setIgnoreRedirects(boolean ignoreRedirects) {
+        this.ignoreRedirects = ignoreRedirects;
     }
 
     public void setHtmlReportDir(String htmlReportDir) {

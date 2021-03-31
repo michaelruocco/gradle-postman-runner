@@ -30,6 +30,8 @@ public interface NewmanSettings {
 
     boolean getSecure();
 
+    boolean getIgnoreRedirects();
+
     Map<String, String> getEnvVars();
 
     Map<String, String> getGlobalVars();

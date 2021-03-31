@@ -23,6 +23,7 @@ public class PostmanExtension implements NewmanSettings {
     private boolean noColor = true;
     private boolean disableUnicode = false;
     private boolean secure = true;
+    private boolean ignoreRedirects = false;
     private Map<String, String> envVars;
     private Map<String, String> globalsVars;
 
@@ -111,6 +112,11 @@ public class PostmanExtension implements NewmanSettings {
     }
 
     @Override
+    public boolean getIgnoreRedirects() {
+        return ignoreRedirects;
+    }
+
+    @Override
     public Map<String, String> getEnvVars() {
         return envVars;
     }
@@ -125,7 +131,7 @@ public class PostmanExtension implements NewmanSettings {
     }
 
     public void setGlobalVars(Map<String, String> globalsVars) {
-        this.envVars = globalsVars;
+        this.globalsVars = globalsVars;
     }
 
     public void setNoColor(boolean noColor) {
@@ -138,6 +144,10 @@ public class PostmanExtension implements NewmanSettings {
 
     public void setSecure(boolean secure) {
         this.secure = secure;
+    }
+
+    public void setIgnoreRedirects(boolean ignoreRedirects) {
+        this.ignoreRedirects = ignoreRedirects;
     }
 
     public void setHtmlReportDir(String htmlReportDir) {

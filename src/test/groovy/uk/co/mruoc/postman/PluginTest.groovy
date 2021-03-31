@@ -6,11 +6,14 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
+import static org.assertj.core.api.Assertions.assertThat
+import static org.assertj.core.api.Assertions.catchThrowable
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import org.apache.commons.io.FileUtils
 import org.gradle.testkit.runner.GradleRunner
+import org.gradle.testkit.runner.UnexpectedBuildFailure
 import org.junit.Rule
 import spock.lang.Specification
 
@@ -177,6 +180,75 @@ class PluginTest extends Specification {
         then:
         println result.output
         result.task(":postman").outcome == SUCCESS
+    }
+
+    def "can execute postman collection with ignore redirects disabled"() {
+        given:
+        buildFile << """
+            postman {
+                collections = fileTree(dir: '.', include: '*postman_collection.json')
+                environment = file('./local.postman_environment.json')
+                ignoreRedirects = false
+            }
+        """
+
+        stubFor(get(urlEqualTo("/gradle-postman-runner-test"))
+                .withHeader("Accept", equalTo("application/json"))
+                .willReturn(aResponse()
+                        .withStatus(301)
+                        .withHeader("Location", "http://localhost:8081/redirect-test")))
+        stubFor(get(urlEqualTo("/redirect-test"))
+                .withHeader("Accept", equalTo("application/json"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("{\"field1\":\"ONE\",\"field2\":2}")))
+
+        when:
+        def result = GradleRunner.create()
+                .withProjectDir(testProjectDir)
+                .withArguments('postman')
+                .withPluginClasspath()
+                .build()
+
+        then:
+        println result.output
+        result.task(":postman").outcome == SUCCESS
+    }
+
+    def "can execute postman collection with ignore redirects enabled and fail if redirects required"() {
+        given:
+        buildFile << """
+            postman {
+                collections = fileTree(dir: '.', include: '*postman_collection.json')
+                environment = file('./local.postman_environment.json')
+                ignoreRedirects = true
+            }
+        """
+
+        stubFor(get(urlEqualTo("/gradle-postman-runner-test"))
+                .withHeader("Accept", equalTo("application/json"))
+                .willReturn(aResponse()
+                        .withStatus(301)
+                        .withHeader("Location", "http://localhost:8081/redirect-test")))
+        stubFor(get(urlEqualTo("/redirect-test"))
+                .withHeader("Accept", equalTo("application/json"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("{\"field1\":\"ONE\",\"field2\":2}")))
+
+        when:
+        def error = catchThrowable({
+            GradleRunner.create()
+                    .withProjectDir(testProjectDir)
+                    .withArguments('postman')
+                    .withPluginClasspath()
+                    .build()
+        })
+
+        then:
+        assertThat(error).isInstanceOf(UnexpectedBuildFailure.class)
     }
 
 }

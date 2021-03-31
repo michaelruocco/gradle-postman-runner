@@ -28,6 +28,7 @@ dependencies {
     compile "org.apache.commons:commons-io:1.3.2"
     compile "com.google.code.gson:gson:2.8.6"
 
+    testCompile "org.assertj:assertj-core:3.19.0"
     testCompile "com.github.tomakehurst:wiremock-jre8:2.27.2"
     testCompile("org.spockframework:spock-core:1.1-groovy-2.4") {
         exclude group: "org.codehaus.groovy"

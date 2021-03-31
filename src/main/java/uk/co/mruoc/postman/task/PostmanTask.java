@@ -76,6 +76,10 @@ public class PostmanTask extends DefaultTask {
         settings.setSecure(secure);
     }
 
+    public void setIgnoreRedirects(boolean ignoreRedirects) {
+        settings.setIgnoreRedirects(ignoreRedirects);
+    }
+
     public void setHtmlReportDir(String htmlReportDir) {
         settings.setHtmlReportDir(htmlReportDir);
     }
