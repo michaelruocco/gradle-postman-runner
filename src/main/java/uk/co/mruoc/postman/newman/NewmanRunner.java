@@ -50,6 +50,7 @@ public class NewmanRunner {
         nodeExecRunner.setArguments(asList(
                 getWrapperAbsolutePath().toString(),
                 getNewmanConfiguration(collection)));
+
         try {
             return nodeExecRunner.execute().getExitValue() == 0;
         } catch (ExecException ignored) {

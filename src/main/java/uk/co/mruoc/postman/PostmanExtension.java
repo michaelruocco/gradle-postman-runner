@@ -13,6 +13,7 @@ public class PostmanExtension implements NewmanSettings {
 
     private FileTree collections;
     private File environment;
+    private File globals;
     private boolean cliReport = true;
     private String xmlReportDir;
     private String htmlReportDir;
@@ -22,6 +23,8 @@ public class PostmanExtension implements NewmanSettings {
     private boolean noColor = true;
     private boolean disableUnicode = false;
     private boolean secure = true;
+    private Map<String, String> envVars;
+    private Map<String, String> globalsVars;
 
     @Override
     public FileTree getCollections() {
@@ -39,6 +42,15 @@ public class PostmanExtension implements NewmanSettings {
 
     public void setEnvironment(File environment) {
         this.environment = environment;
+    }
+
+    @Override
+    public File getGlobals() {
+        return globals;
+    }
+
+    public void setGlobals(File globals) {
+        this.globals = globals;
     }
 
     @Override
@@ -96,6 +108,24 @@ public class PostmanExtension implements NewmanSettings {
     @Override
     public boolean getSecure() {
         return secure;
+    }
+
+    @Override
+    public Map<String, String> getEnvVars() {
+        return envVars;
+    }
+
+    public void setEnvVars(Map<String, String> envVars) {
+        this.envVars = envVars;
+    }
+
+    @Override
+    public Map<String, String> getGlobalVars() {
+        return globalsVars;
+    }
+
+    public void setGlobalVars(Map<String, String> globalsVars) {
+        this.envVars = globalsVars;
     }
 
     public void setNoColor(boolean noColor) {

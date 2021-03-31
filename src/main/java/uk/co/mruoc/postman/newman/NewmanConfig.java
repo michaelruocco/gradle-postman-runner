@@ -7,12 +7,17 @@ import uk.co.mruoc.postman.settings.NewmanSettings;
 import org.gradle.api.Project;
 
 import java.io.File;
+import java.util.Map;
 
-import static uk.co.mruoc.postman.task.util.Json.*;
+import static uk.co.mruoc.postman.task.util.Json.array;
+import static uk.co.mruoc.postman.task.util.Json.empty;
+import static uk.co.mruoc.postman.task.util.Json.object;
+import static uk.co.mruoc.postman.task.util.Json.primitive;
 
 class NewmanConfig {
-    private Project project;
-    private NewmanSettings settings;
+
+    private final Project project;
+    private final NewmanSettings settings;
 
     NewmanConfig(Project project, NewmanSettings settings) {
         this.project = project;
@@ -25,8 +30,8 @@ class NewmanConfig {
 
     private class JsonBuilder {
 
-        private JsonObject params = object();
-        private File collection;
+        private final JsonObject params = object();
+        private final File collection;
 
         JsonBuilder(File collection) {
             this.collection = collection;
@@ -40,11 +45,14 @@ class NewmanConfig {
         private void buildParameters() {
             addCollection();
             addEnvironment();
+            addGlobals();
             addReporters();
             addBail();
             addNoColor();
             addDisableUnicode();
             addSecure();
+            addEnvVars();
+            addGlobalVars();
         }
 
         private void addCollection() {
@@ -131,6 +139,42 @@ class NewmanConfig {
             if (settings.getEnvironment() != null) {
                 params.add("environment", new JsonPrimitive(settings.getEnvironment().toString()));
             }
+        }
+
+        private void addGlobals() {
+            if (settings.getGlobals() != null) {
+                params.add("globals", new JsonPrimitive(settings.getGlobals().toString()));
+            }
+        }
+
+        private void addEnvVars() {
+            addVars("envVar", settings.getEnvVars());
+        }
+
+        private void addGlobalVars() {
+            addVars("globalVar", settings.getGlobalVars());
+        }
+
+        private void addVars(String name, Map<String, String> values) {
+            if (values == null || values.isEmpty()) {
+                return;
+            }
+            params.add(name, toVars(values));
+        }
+
+        private JsonArray toVars(Map<String, String> values) {
+            JsonArray vars = array();
+            values.entrySet().stream()
+                    .map(e -> toVar(e.getKey(), e.getValue()))
+                    .forEach(vars::add);
+            return vars;
+        }
+
+        private JsonObject toVar(String key, String value) {
+            JsonObject var = object();
+            var.addProperty("key", key);
+            var.addProperty("value", value);
+            return var;
         }
 
         private void addBail() {

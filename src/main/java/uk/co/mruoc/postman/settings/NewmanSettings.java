@@ -3,11 +3,14 @@ package uk.co.mruoc.postman.settings;
 import org.gradle.api.file.FileTree;
 
 import java.io.File;
+import java.util.Map;
 
 public interface NewmanSettings {
     FileTree getCollections();
 
     File getEnvironment();
+
+    File getGlobals();
 
     boolean getCliReport();
 
@@ -26,5 +29,9 @@ public interface NewmanSettings {
     boolean getDisableUnicode();
 
     boolean getSecure();
+
+    Map<String, String> getEnvVars();
+
+    Map<String, String> getGlobalVars();
 
 }

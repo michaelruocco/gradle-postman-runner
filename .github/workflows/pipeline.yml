@@ -1,0 +1,59 @@
+name: pipeline
+
+on:
+  push:
+    branches-ignore:
+      - 'gradle-postman-runner-*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+
+      - name: Setup SonarCloud Cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Setup Gradle Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle
+
+      - name: Print Current Version
+        run: ./gradlew currentVersion
+
+      - name: Check Dependencies
+        run: ./gradlew dependencyUpdates
+
+      - name: Build
+        run: ./gradlew clean spotlessCheck lintGradle assemble
+
+      - name: Test
+        run: ./gradlew test
+
+      - name: Release
+        if: github.ref == 'refs/heads/master'
+        env:
+          GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
+          GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PUBLISH_SECRET }}
+        run: |
+          ./gradlew release -Prelease.customUsername=${{ github.actor }} -Prelease.customPassword=${{ github.token }}
+          ./gradlew publishPlugins -Pgradle.publish.key=GRADLE_PUBLISH_KEY -Pgradle.publish.secret=GRADLE_PUBLISH_SECRET
+          ./gradlew currentVersion

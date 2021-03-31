@@ -3,9 +3,7 @@ package uk.co.mruoc.postman.task;
 import uk.co.mruoc.postman.PostmanExtension;
 import uk.co.mruoc.postman.PostmanRunnerPlugin;
 import uk.co.mruoc.postman.newman.NewmanRunner;
-import uk.co.mruoc.postman.settings.NewmanSettings;
 import uk.co.mruoc.postman.settings.PreferredSettings;
-import uk.co.mruoc.postman.task.util.Supplier;
 import com.moowork.gradle.node.task.SetupTask;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.GradleException;
@@ -13,11 +11,12 @@ import org.gradle.api.file.FileTree;
 import org.gradle.api.tasks.TaskAction;
 
 import java.io.File;
+import java.util.Map;
 
 import static java.util.Arrays.asList;
 
 public class PostmanTask extends DefaultTask {
-    public final static String NAME = "postman";
+    public static final String NAME = "postman";
 
     private PreferredSettings settings;
 
@@ -30,13 +29,7 @@ public class PostmanTask extends DefaultTask {
     }
 
     private void buildSettings() {
-        settings = new PreferredSettings(new Supplier<NewmanSettings>() {
-            @Override
-            public NewmanSettings get() {
-                return getProject().getExtensions().getByType(PostmanExtension.class);
-            }
-
-        });
+        settings = new PreferredSettings(() -> getProject().getExtensions().getByType(PostmanExtension.class));
     }
 
     @TaskAction
@@ -53,6 +46,10 @@ public class PostmanTask extends DefaultTask {
 
     public void setEnvironment(File environment) {
         settings.setEnvironment(environment);
+    }
+
+    public void setGlobals(File globals) {
+        settings.setGlobals(globals);
     }
 
     public void setCliReport(boolean cliReport) {
@@ -89,5 +86,13 @@ public class PostmanTask extends DefaultTask {
 
     public void setJsonReportDir(String jsonReportDir) {
         settings.setJsonReportDir(jsonReportDir);
+    }
+
+    public void setEnvVars(Map<String, String> envVars) {
+        settings.setEnvVars(envVars);
+    }
+
+    public void setGlobalVars(Map<String, String> globalVars) {
+        settings.setGlobalVars(globalVars);
     }
 }
