@@ -91,7 +91,7 @@ postman {
 Besides a global configuration with the 'postman' extension as seen above, it's also possible to create a custom task and override all of the global configuration values (if any given):
 
 ```groovy
-task postmanOnDifferentEnvifonment(type: de.infonautika.postman.task.PostmanTask) {
+task postmanOnDifferentEnvifonment(type: uk.co.mruoc.postman.task.PostmanTask) {
     environment = file('different_environment.postman_environment.json')
     stopOnError = false
 }
