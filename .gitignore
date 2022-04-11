@@ -3,3 +3,5 @@ build/
 .idea/
 src/test/resources/test-build/node_modules/
 src/test/resources/test-build/package-lock.json
+.vscode
+bin

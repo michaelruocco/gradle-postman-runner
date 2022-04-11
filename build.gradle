@@ -24,13 +24,13 @@ repositories {
 }
 
 dependencies {
-    compile "com.moowork.gradle:gradle-node-plugin:1.3.1"
-    compile "org.apache.commons:commons-io:1.3.2"
-    compile "com.google.code.gson:gson:2.8.6"
+    implementation "com.moowork.gradle:gradle-node-plugin:1.3.1"
+    implementation "org.apache.commons:commons-io:1.3.2"
+    implementation "com.google.code.gson:gson:2.8.6"
 
-    testCompile "org.assertj:assertj-core:3.19.0"
-    testCompile "com.github.tomakehurst:wiremock-jre8:2.27.2"
-    testCompile("org.spockframework:spock-core:1.1-groovy-2.4") {
+    testImplementation "org.assertj:assertj-core:3.19.0"
+    testImplementation "com.github.tomakehurst:wiremock-jre8:2.27.2"
+    testImplementation("org.spockframework:spock-core:1.1-groovy-2.4") {
         exclude group: "org.codehaus.groovy"
     }
 }
