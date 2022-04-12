@@ -1,9 +1,9 @@
 package uk.co.mruoc.postman.task;
 
 import uk.co.mruoc.postman.PostmanRunnerPlugin;
-import com.moowork.gradle.node.NodeExtension;
-import com.moowork.gradle.node.npm.NpmSetupTask;
-import com.moowork.gradle.node.npm.NpmTask;
+import com.github.gradle.node.NodeExtension;
+import com.github.gradle.node.npm.task.NpmSetupTask;
+import com.github.gradle.node.npm.task.NpmTask;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.OutputDirectory;
 
@@ -24,7 +24,7 @@ public class InstallNewmanTask extends NpmTask {
 
     @OutputDirectory
     public File getNewmanOutputDir() {
-        return new File(getProject().getExtensions().getByType(NodeExtension.class).getNodeModulesDir(),
+        return new File(getProject().getExtensions().getByType(NodeExtension.class).getNodeProjectDir(),
                 "node_modules/newman");
     }
 

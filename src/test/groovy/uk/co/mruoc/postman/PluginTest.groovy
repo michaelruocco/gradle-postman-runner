@@ -33,7 +33,7 @@ class PluginTest extends Specification {
         buildFile.createNewFile()
         buildFile << """
             plugins {
-                id 'com.moowork.node' version '1.3.1'
+                id 'com.github.node-gradle.node' version '3.2.1'
                 id 'com.github.michaelruocco.gradle-postman-runner'
             }
         """
@@ -50,7 +50,7 @@ class PluginTest extends Specification {
             }
         """
 
-        stubFor(get(urlEqualTo("/gradle-postman-runner-test"))
+        wireMockRule.stubFor(get(urlEqualTo("/gradle-postman-runner-test"))
                 .withHeader("Accept", equalTo("application/json"))
                 .willReturn(aResponse()
                         .withStatus(200)

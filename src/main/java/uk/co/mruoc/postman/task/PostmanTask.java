@@ -4,7 +4,7 @@ import uk.co.mruoc.postman.PostmanExtension;
 import uk.co.mruoc.postman.PostmanRunnerPlugin;
 import uk.co.mruoc.postman.newman.NewmanRunner;
 import uk.co.mruoc.postman.settings.PreferredSettings;
-import com.moowork.gradle.node.task.SetupTask;
+import com.github.gradle.node.task.NodeSetupTask;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.GradleException;
 import org.gradle.api.file.FileTree;
@@ -23,7 +23,7 @@ public class PostmanTask extends DefaultTask {
     public PostmanTask() {
         setGroup(PostmanRunnerPlugin.GROUP_NAME);
         setDescription("executes Postman collections");
-        dependsOn(asList(SetupTask.NAME, InstallNewmanTask.NAME, DeployNewmanWrapperTask.NAME));
+        dependsOn(asList(NodeSetupTask.NAME, InstallNewmanTask.NAME, DeployNewmanWrapperTask.NAME));
 
         buildSettings();
     }
